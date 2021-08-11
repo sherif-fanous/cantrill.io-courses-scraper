@@ -67,30 +67,18 @@ Resources:
           COURSES:
             "{\n  \"associate\": [\n      {\n          \"code\": \"dva-c01\"\
             ,\n          \"title\": \"AWS Certified Developer\",\n          \"url\"\
-            : \"https://learn.cantrill.io/p/aws-certified-developer-associate\",\n\
-            \          \"duration\": {\n              \"total\": \"\",\n         \
-            \     \"theory\": \"\",\n              \"demo\": \"\"\n          },\n\
-            \          \"sections\": []\n      },\n      {\n          \"code\": \"\
-            saa-c02\",\n          \"title\": \"AWS Certified Solutions Architect\"\
-            ,\n          \"url\": \"https://learn.cantrill.io/p/aws-certified-solutions-architect-associate-saa-c02\"\
-            ,\n          \"duration\": {\n              \"total\": \"\",\n       \
-            \       \"theory\": \"\",\n              \"demo\": \"\"\n          },\n\
-            \          \"sections\": []\n      },\n      {\n          \"code\": \"\
-            soa-c02\",\n          \"title\": \"AWS Certified SysOps Administrator\"\
-            ,\n          \"url\": \"https://learn.cantrill.io/p/aws-certified-sysops-administrator-associate\"\
-            ,\n          \"duration\": {\n              \"total\": \"\",\n       \
-            \       \"theory\": \"\",\n              \"demo\": \"\"\n          },\n\
-            \          \"sections\": []\n      }\n  ],\n  \"professional\": [\n  \
-            \    {\n          \"code\": \"sap-c01\",\n          \"title\": \"AWS Certified\
-            \ Solutions Architect\",\n          \"url\": \"https://learn.cantrill.io/p/aws-certified-solutions-architect-professional\"\
-            ,\n          \"duration\": {\n              \"total\": \"\",\n       \
-            \       \"theory\": \"\",\n              \"demo\": \"\"\n          },\n\
-            \          \"sections\": []\n      }\n  ],\n  \"specialty\": [\n     \
-            \ {\n          \"code\": \"ans-c01\",\n          \"title\": \"AWS Certified\
-            \ Advanced Networking\",\n          \"url\": \"https://learn.cantrill.io/p/aws-certified-advanced-networking-specialty\"\
-            ,\n          \"duration\": {\n              \"total\": \"\",\n       \
-            \       \"theory\": \"\",\n              \"demo\": \"\"\n          },\n\
-            \          \"sections\": []\n      }\n  ]\n}"
+            : \"https://learn.cantrill.io/p/aws-certified-developer-associate\"\n\
+            \      },\n      {\n          \"code\": \"saa-c02\",\n          \"title\"\
+            : \"AWS Certified Solutions Architect\",\n          \"url\": \"https://learn.cantrill.io/p/aws-certified-solutions-architect-associate-saa-c02\"\
+            \n      },\n      {\n          \"code\": \"soa-c02\",\n          \"title\"\
+            : \"AWS Certified SysOps Administrator\",\n          \"url\": \"https://learn.cantrill.io/p/aws-certified-sysops-administrator-associate\"\
+            \n      }\n  ],\n  \"professional\": [\n      {\n          \"code\": \"\
+            sap-c01\",\n          \"title\": \"AWS Certified Solutions Architect\"\
+            ,\n          \"url\": \"https://learn.cantrill.io/p/aws-certified-solutions-architect-professional\"\
+            \n      }\n  ],\n  \"specialty\": [\n      {\n          \"code\": \"ans-c01\"\
+            ,\n          \"title\": \"AWS Certified Advanced Networking\",\n     \
+            \     \"url\": \"https://learn.cantrill.io/p/aws-certified-advanced-networking-specialty\"\
+            \n      }\n  ]\n}"
           S3_BUCKET_NAME:
             Fn::ImportValue: CantrillCoursesScraperS3BucketName
       FunctionName: CantrillCoursesScraper

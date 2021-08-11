@@ -22,61 +22,31 @@ Resources:
                   {
                       "code": "dva-c01",
                       "title": "AWS Certified Developer",
-                      "url": "https://learn.cantrill.io/p/aws-certified-developer-associate",
-                      "duration": {
-                          "total": "",
-                          "theory": "",
-                          "demo": ""
-                      },
-                      "sections": []
+                      "url": "https://learn.cantrill.io/p/aws-certified-developer-associate"
                   },
                   {
                       "code": "saa-c02",
                       "title": "AWS Certified Solutions Architect",
-                      "url": "https://learn.cantrill.io/p/aws-certified-solutions-architect-associate-saa-c02",
-                      "duration": {
-                          "total": "",
-                          "theory": "",
-                          "demo": ""
-                      },
-                      "sections": []
+                      "url": "https://learn.cantrill.io/p/aws-certified-solutions-architect-associate-saa-c02"
                   },
                   {
                       "code": "soa-c02",
                       "title": "AWS Certified SysOps Administrator",
-                      "url": "https://learn.cantrill.io/p/aws-certified-sysops-administrator-associate",
-                      "duration": {
-                          "total": "",
-                          "theory": "",
-                          "demo": ""
-                      },
-                      "sections": []
+                      "url": "https://learn.cantrill.io/p/aws-certified-sysops-administrator-associate"
                   }
               ],
               "professional": [
                   {
                       "code": "sap-c01",
                       "title": "AWS Certified Solutions Architect",
-                      "url": "https://learn.cantrill.io/p/aws-certified-solutions-architect-professional",
-                      "duration": {
-                          "total": "",
-                          "theory": "",
-                          "demo": ""
-                      },
-                      "sections": []
+                      "url": "https://learn.cantrill.io/p/aws-certified-solutions-architect-professional"
                   }
               ],
               "specialty": [
                   {
                       "code": "ans-c01",
                       "title": "AWS Certified Advanced Networking",
-                      "url": "https://learn.cantrill.io/p/aws-certified-advanced-networking-specialty",
-                      "duration": {
-                          "total": "",
-                          "theory": "",
-                          "demo": ""
-                      },
-                      "sections": []
+                      "url": "https://learn.cantrill.io/p/aws-certified-advanced-networking-specialty"
                   }
               ]
             }

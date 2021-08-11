@@ -83,7 +83,7 @@
           <li style="padding: 0px">
             <a href="javascript:void(0)" onclick="toggleAccordian('<%= course.code %>')" style="text-decoration: none">
               <div class="w3-light-grey" style="margin-top: 8px; margin-bottom: 8px">
-                <b><%= course.title %><br />Total (<%= course.duration.total %>) | Theory (<%= course.duration.theory %>) | Demo (<%= course.duration.demo %>)</b>
+                <b><%= course.title %><br />Lectures: Total (<%= course.count.total %>) | Theory (<%= course.count.theory %>) | Demo (<%= course.count.demo %>)<br />Duration: Total (<%= course.duration.total %>) | Theory (<%= course.duration.theory %>) | Demo (<%= course.duration.demo %>)</b>
               </div>
             </a>
           </li>
@@ -93,7 +93,7 @@
           <div class="w3-container" style="margin-top: 8px; margin-bottom: 8px; padding: 0px">
             <ul class="w3-ul w3-light-grey">
               <li class="w3-border-white">
-                <b><%= section.title %><br />Total (<%= section.duration.total %>) | Theory (<%= section.duration.theory%>) | Demo (<%= section.duration.demo %>)</b>
+                <b><%= section.title %><br />Lectures: Total (<%= section.count.total %>) | Theory (<%= section.count.theory%>) | Demo (<%= section.count.demo %>)<br />Duration: Total (<%= section.duration.total %>) | Theory (<%= section.duration.theory%>) | Demo (<%= section.duration.demo %>)</b>
               </li>
               <%_ section.lectures.forEach(function(lecture) { %>
               <li class="w3-border-white">
