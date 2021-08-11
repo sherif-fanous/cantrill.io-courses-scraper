@@ -1,3 +1,6 @@
+## 1.1.1 2021-08-11
+- Improved HTML layout
+
 ## 1.1.0 2021-08-11
 
 - **Feature** Added lectures count to courses and sections

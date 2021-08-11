@@ -82,8 +82,56 @@
         <ul class="w3-ul">
           <li style="padding: 0px">
             <a href="javascript:void(0)" onclick="toggleAccordian('<%= course.code %>')" style="text-decoration: none">
-              <div class="w3-light-grey" style="margin-top: 8px; margin-bottom: 8px">
-                <b><%= course.title %><br />Lectures: Total (<%= course.count.total %>) | Theory (<%= course.count.theory %>) | Demo (<%= course.count.demo %>)<br />Duration: Total (<%= course.duration.total %>) | Theory (<%= course.duration.theory %>) | Demo (<%= course.duration.demo %>)</b>
+              <div class="w3-center w3-light-grey" style="margin-top: 8px; margin-bottom: 8px">
+                <b>
+                  <div class="w3-row">
+                    <div class="w3-col w3-center s12 m12 l12">
+                      <span><%= course.title %></span>
+                    </div>
+                  </div>
+                  <div class="w3-row">
+                    <div class="w3-col w3-center s3 m3 l3">
+                      <span class="w3-margin-top">&nbsp;</span>
+                    </div>
+                    <div class="w3-col w3-center s3 m3 l3">
+                      <span class="w3-margin-top">Total</span>
+                    </div>
+                    <div class="w3-col w3-center s3 m3 l3">
+                      <span class="w3-margin-top">Theory</span>
+                    </div>
+                    <div class="w3-col w3-center s3 m3 l3">
+                      <span class="w3-margin-top">Demo</span>
+                    </div>
+                  </div>
+                  <div class="w3-row">
+                    <div class="w3-col w3-center s3 m3 l3">
+                      <span>Lectures</span>
+                    </div>
+                    <div class="w3-col w3-center s3 m3 l3">
+                      <span><%= course.count.total %></span>
+                    </div>
+                    <div class="w3-col w3-center s3 m3 l3">
+                      <span><%= course.count.theory %></span>
+                    </div>
+                    <div class="w3-col w3-center s3 m3 l3">
+                      <span><%= course.count.demo %></span>
+                    </div>
+                  </div>
+                  <div class="w3-row">
+                    <div class="w3-col w3-center s3 m3 l3">
+                      <span>Duration</span>
+                    </div>
+                    <div class="w3-col w3-center s3 m3 l3">
+                      <span><%= course.duration.total %></span>
+                    </div>
+                    <div class="w3-col w3-center s3 m3 l3">
+                      <span><%= course.duration.theory %></span>
+                    </div>
+                    <div class="w3-cols w3-center s3 m3 l3">
+                      <span><%= course.duration.demo %></span>
+                    </div>
+                  </div>
+                </b>
               </div>
             </a>
           </li>
@@ -93,7 +141,55 @@
           <div class="w3-container" style="margin-top: 8px; margin-bottom: 8px; padding: 0px">
             <ul class="w3-ul w3-light-grey">
               <li class="w3-border-white">
-                <b><%= section.title %><br />Lectures: Total (<%= section.count.total %>) | Theory (<%= section.count.theory%>) | Demo (<%= section.count.demo %>)<br />Duration: Total (<%= section.duration.total %>) | Theory (<%= section.duration.theory%>) | Demo (<%= section.duration.demo %>)</b>
+                <b>
+                  <div class="w3-row">
+                    <div class="w3-col w3-center s12 m12 l12">
+                      <span><%= section.title %></span>
+                    </div>
+                  </div>
+                  <div class="w3-row">
+                    <div class="w3-col w3-center s3 m3 l3">
+                      <span class="w3-margin-top">&nbsp;</span>
+                    </div>
+                    <div class="w3-col w3-center s3 m3 l3">
+                      <span class="w3-margin-top">Total</span>
+                    </div>
+                    <div class="w3-col w3-center s3 m3 l3">
+                      <span class="w3-margin-top">Theory</span>
+                    </div>
+                    <div class="w3-col w3-center s3 m3 l3">
+                      <span class="w3-margin-top">Demo</span>
+                    </div>
+                  </div>
+                  <div class="w3-row">
+                    <div class="w3-col w3-center s3 m3 l3">
+                      <span>Lectures</span>
+                    </div>
+                    <div class="w3-col w3-center s3 m3 l3">
+                      <span><%= section.count.total %></span>
+                    </div>
+                    <div class="w3-col w3-center s3 m3 l3">
+                      <span><%= section.count.theory %></span>
+                    </div>
+                    <div class="w3-col w3-center s3 m3 l3">
+                      <span><%= section.count.demo %></span>
+                    </div>
+                  </div>
+                  <div class="w3-row">
+                    <div class="w3-col w3-center s3 m3 l3">
+                      <span>Duration</span>
+                    </div>
+                    <div class="w3-col w3-center s3 m3 l3">
+                      <span><%= section.duration.total %></span>
+                    </div>
+                    <div class="w3-col w3-center s3 m3 l3">
+                      <span><%= section.duration.theory %></span>
+                    </div>
+                    <div class="w3-cols w3-center s3 m3 l3">
+                      <span><%= section.duration.demo %></span>
+                    </div>
+                  </div>
+                </b>
               </li>
               <%_ section.lectures.forEach(function(lecture) { %>
               <li class="w3-border-white">
