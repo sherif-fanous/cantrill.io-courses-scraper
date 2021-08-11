@@ -1,0 +1,48 @@
+{
+  "author": "Sherif Fanous",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.25.0",
+    "eta": "^1.12.3",
+    "jsdom": "^16.6.0"
+  },
+  "description": "Scrapes Adrian Cantrill's (cantrill.io) AWS courses and uploads the output to an S3 bucket hosting a static website",
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-semistandard": "^16.0.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "prettier": "^2.3.2"
+  },
+  "keywords": [],
+  "license": "MIT",
+  "main": "app.js",
+  "name": "cantrill-course-metadata-scraper",
+  "prettier": {
+    "overrides": [
+      {
+        "files": [
+          "*.eta",
+          "*.html"
+        ],
+        "options": {
+          "printWidth": 180
+        }
+      }
+    ],
+    "printWidth": 120,
+    "singleQuote": true,
+    "trailingComma": "none"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sfanous/cantrill.io-courses-scraper"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "commonjs",
+  "version": "1.0.0"
+}

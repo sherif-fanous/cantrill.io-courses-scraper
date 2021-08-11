@@ -1,0 +1,62 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: cantrill.io-courses-scraper Serverless Application
+
+Outputs:
+  CantrillCoursesScraperS3BucketName:
+    Description: The name of the S3 bucket
+    Value:
+      Ref: CantrillCoursesScraperS3Bucket
+    Export:
+      Name: CantrillCoursesScraperS3BucketName
+
+  CantrillCoursesScraperS3BucketArn:
+    Description: The ARN of the S3 bucket
+    Value:
+      Fn::GetAtt:
+        - CantrillCoursesScraperS3Bucket
+        - Arn
+    Export:
+      Name: CantrillCoursesScraperS3BucketArn
+
+  CantrillCoursesScraperS3BucketWebsiteURL:
+    Description: The website endpoint of the S3 bucket
+    Value:
+      Fn::GetAtt:
+        - CantrillCoursesScraperS3Bucket
+        - WebsiteURL
+
+Parameters:
+  S3BucketName:
+    Description: Enter the name of the S3 bucket
+    Type: String
+
+Resources:
+  CantrillCoursesScraperS3Bucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+    Properties:
+      BucketName:
+        Ref: S3BucketName
+      WebsiteConfiguration:
+        IndexDocument: index.html
+
+  CantrillCoursesScraperS3BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket:
+        Ref: CantrillCoursesScraperS3Bucket
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - s3:GetObject
+            Effect: Allow
+            Resource:
+              Fn::Join:
+                - ""
+                - - Fn::GetAtt:
+                      - CantrillCoursesScraperS3Bucket
+                      - Arn
+                  - /*
+            Principal: "*"
