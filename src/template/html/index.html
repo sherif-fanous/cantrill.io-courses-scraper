@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html style="overflow: hidden">
+  <head>
+    <title>Cantrill.io Courses Duration</title>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/balloon-css/1.2.0/balloon.min.css"
+      integrity="sha512-6jHrqOB5TcbWsW52kWP9TTx06FHzpj7eTOnuxQrKaqSvpcML2HTDR2/wWWPOh/YvcQQBGdomHL/x+V1Hn+AWCA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/w3-css/4.1.0/w3.min.css"
+      integrity="sha512-Z6UIAdEZ7JNzeX5M/c5QZj+oqbldGD+E8xJEoOwAx5e0phH7kdjsWULGeK5l2UjehKtChHDaUY2rQAF/NEiI9w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/9.2.1/highcharts.min.js"
+      integrity="sha512-otjtoVAPCi/XiEPrJA9BOgySUrLJOMbOvee05ma/oP1KFXm27CXTN/8OETWdrWl2QLOlHv1aNQrrJQonaeiijQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/9.2.1/modules/venn.min.js"
+      integrity="sha512-XpnZgMRa+thsHThzvVhh44up6J3xTlGJOWjzJX//VSO2zhcNwimbzkpm+iyhSZBtb8jNoF6g/woJR8bPDa203w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+      integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="index.js"></script>
+  </head>
+  <body class="w3-sans-serif" style="height: 100%">
+    <div>
+      <div id="navigationBarDiv" style="padding: 0.01em 16px">
+        <div class="w3-bar" id="navigationBarButtonsDiv" style="background-color: #232f3e; padding: 1px">
+          <button id="introButton" class="w3-bar-item w3-button w3-mobile navigation-button" onclick="openContentDiv('introButton', 'introDiv')" style="color: #ffffff !important; background-color: #ff9900 !important">Introduction</button>
+          <button id="coursesButton" class="w3-bar-item w3-button w3-mobile navigation-button" onclick="openContentDiv('coursesButton', 'coursesDiv')" style="color: #ffffff !important">Courses</button>
+          <button id="chartsButton" class="w3-bar-item w3-button w3-mobile navigation-button" onclick="openContentDiv('chartsButton', 'chartsDiv')" style="color: #ffffff !important">Charts</button>
+          <button id="aboutButton" class="w3-bar-item w3-button w3-mobile navigation-button" onclick="openContentDiv('aboutButton', 'aboutDiv')" style="color: #ffffff !important">About</button>
+        </div>
+      </div>
+
+      <div class="w3-container" id="contentDiv" style="left: 0px; position: relative; top: 16px; width: 100%">
+        <div id="introDiv" class="w3-container w3-border content-div" style="display: block; overflow-y: auto">
+          <div class="w3-container">
+            <div class="w3-panel w3-center">
+              <div class="w3-xxlarge">Welcome!</div>
+            </div>
+
+            <div class="w3-panel w3-leftbar w3-light-grey">
+              <p class="w3-xlarge">
+                <i>"How long is Adrian Cantrill's AWS Certified Solutions Architect - Associate course?"</i>
+              </p>
+            </div>
+
+            <div class="w3-panel w3-leftbar w3-light-grey">
+              <p class="w3-xlarge">
+                <i>"How much content is shared between Adrian Cantrill's AWS Certified Solutions Architect - Associate and AWS Certified Solutions Architect - Professional?"</i>
+              </p>
+            </div>
+
+            <p>These questions and similar ones for all of Adrian's courses are very common questions asked by prospective students embarking on the their AWS certification journey.</p>
+            <p>This Webapp addresses these questions in the hopes that it helps prospective students with their planning and time management.</p>
+
+            <div class="w3-container w3-center">
+              <br />
+              <div class="w3-small w3-opacity">Content last updated on <%= it.lastUpdateDateTimeUTC %></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="coursesDiv" class="w3-container w3-border content-div" style="display: none; overflow-y: auto">
+          <div class="w3-row w3-padding">
+            <a href="javascript:void(0)" onclick="openCertificationLevelDiv('associateTab','associate');">
+              <div id="associateTab" class="w3-third certification-tab-div w3-bottombar w3-hover-light-grey w3-padding" style="border-color: #2c77ea !important">Associate</div>
+            </a>
+            <a href="javascript:void(0)" onclick="openCertificationLevelDiv('professionalTab','professional');">
+              <div id="professionalTab" class="w3-third certification-tab-div w3-bottombar w3-hover-light-grey w3-padding">Professional</div>
+            </a>
+            <a href="javascript:void(0)" onclick="openCertificationLevelDiv('specialtyTab','specialty');">
+              <div id="specialtyTab" class="w3-third certification-tab-div w3-bottombar w3-hover-light-grey w3-padding">Specialty</div>
+            </a>
+          </div>
+
+          <%_ Object.keys(it.courses).sort().forEach(function(certificationLevel) { %>
+          <div id="<%= certificationLevel %>" class="w3-container certification-div" style="display: <% if (certificationLevel === 'associate') { %>block<% } else { %>none<% } %>">
+            <%_ it.courses[certificationLevel].forEach(function(course) { %>
+            <ul class="w3-ul">
+              <li style="padding: 0px">
+                <a href="javascript:void(0)" onclick="toggleAccordian('<%= course.code %>')" style="text-decoration: none">
+                  <div class="w3-center w3-light-grey" style="margin-top: 8px; margin-bottom: 8px">
+                    <b>
+                      <div class="w3-row">
+                        <div class="w3-col w3-center s12 m12 l12">
+                          <span><%= course.title %></span>
+                        </div>
+                      </div>
+                      <div class="w3-row">
+                        <div class="w3-col w3-center s3 m3 l3">
+                          <span class="w3-margin-top">&nbsp;</span>
+                        </div>
+                        <div class="w3-col w3-center s3 m3 l3">
+                          <span class="w3-margin-top">Total</span>
+                        </div>
+                        <div class="w3-col w3-center s3 m3 l3">
+                          <span class="w3-margin-top">Theory</span>
+                        </div>
+                        <div class="w3-col w3-center s3 m3 l3">
+                          <span class="w3-margin-top">Demo</span>
+                        </div>
+                      </div>
+                      <div class="w3-row">
+                        <div class="w3-col w3-center s3 m3 l3">
+                          <span>Lectures</span>
+                        </div>
+                        <div class="w3-col w3-center s3 m3 l3">
+                          <span><%= course.count.total %></span>
+                        </div>
+                        <div class="w3-col w3-center s3 m3 l3">
+                          <span><%= course.count.theory %></span>
+                        </div>
+                        <div class="w3-col w3-center s3 m3 l3">
+                          <span><%= course.count.demo %></span>
+                        </div>
+                      </div>
+                      <div class="w3-row">
+                        <div class="w3-col w3-center s3 m3 l3">
+                          <span>Duration</span>
+                        </div>
+                        <div class="w3-col w3-center s3 m3 l3">
+                          <span><%= course.duration.total.hhmmss %></span>
+                        </div>
+                        <div class="w3-col w3-center s3 m3 l3">
+                          <span><%= course.duration.theory.hhmmss %></span>
+                        </div>
+                        <div class="w3-cols w3-center s3 m3 l3">
+                          <span><%= course.duration.demo.hhmmss %></span>
+                        </div>
+                      </div>
+                    </b>
+                  </div>
+                </a>
+              </li>
+            </ul>
+            <div id="<%= course.code %>" class="w3-animate-opacity" style="display: none">
+              <%_ course.sections.forEach(function(section) { %>
+              <div class="w3-container" style="margin-top: 8px; margin-bottom: 8px; padding: 0px">
+                <ul class="w3-ul w3-light-grey">
+                  <li class="w3-border-white">
+                    <b>
+                      <div class="w3-row">
+                        <div class="w3-col w3-center s12 m12 l12">
+                          <span><%= section.title %></span>
+                        </div>
+                      </div>
+                      <div class="w3-row">
+                        <div class="w3-col w3-center s3 m3 l3">
+                          <span class="w3-margin-top">&nbsp;</span>
+                        </div>
+                        <div class="w3-col w3-center s3 m3 l3">
+                          <span class="w3-margin-top">Total</span>
+                        </div>
+                        <div class="w3-col w3-center s3 m3 l3">
+                          <span class="w3-margin-top">Theory</span>
+                        </div>
+                        <div class="w3-col w3-center s3 m3 l3">
+                          <span class="w3-margin-top">Demo</span>
+                        </div>
+                      </div>
+                      <div class="w3-row">
+                        <div class="w3-col w3-center s3 m3 l3">
+                          <span>Lectures</span>
+                        </div>
+                        <div class="w3-col w3-center s3 m3 l3">
+                          <span><%= section.count.total %></span>
+                        </div>
+                        <div class="w3-col w3-center s3 m3 l3">
+                          <span><%= section.count.theory %></span>
+                        </div>
+                        <div class="w3-col w3-center s3 m3 l3">
+                          <span><%= section.count.demo %></span>
+                        </div>
+                      </div>
+                      <div class="w3-row">
+                        <div class="w3-col w3-center s3 m3 l3">
+                          <span>Duration</span>
+                        </div>
+                        <div class="w3-col w3-center s3 m3 l3">
+                          <span><%= section.duration.total.hhmmss %></span>
+                        </div>
+                        <div class="w3-col w3-center s3 m3 l3">
+                          <span><%= section.duration.theory.hhmmss %></span>
+                        </div>
+                        <div class="w3-cols w3-center s3 m3 l3">
+                          <span><%= section.duration.demo.hhmmss %></span>
+                        </div>
+                      </div>
+                    </b>
+                  </li>
+                  <%_ section.lectures.forEach(function(lecture) { %>
+                  <li class="w3-border-white">
+                    <span>
+                      <i class="fa <% if(lecture.isVideo) { %>fa-youtube-play<% } else if (lecture.isPracticeExam || lecture.isQuiz) { %>fa-lightbulb-o<% } else { %>fa-file-text<% } %>" aria-hidden="true"></i>
+                    </span>
+                    &nbsp;<%= lecture.titleWithDuration %> <%_ Object.keys(lecture.sharedWith).forEach(function(courseCode) { %>
+                    <span aria-label="Shared with <%= courseCode.toUpperCase() %>" data-balloon-pos="up" style="color: <%= Object.values(it.courses) .flat() .filter((course) => courseCode === course.code) [0].color %>">
+                      <i class="fa fa-dot-circle-o"></i>
+                    </span>
+                    <%_ }) %>
+                  </li>
+                  <%_ }) %>
+                </ul>
+              </div>
+              <%_ }) %>
+            </div>
+            <%_ }) %>
+          </div>
+          <%_ }) %>
+        </div>
+
+        <div id="chartsDiv" class="w3-container w3-border content-div" style="display: none; overflow-y: auto">
+          <div class="w3-row" style="margin-top: 8px">
+            <div class="w3-col w3-center s0 m2 l3">
+              <span>&nbsp;</span>
+            </div>
+            <div class="w3-col s12 m8 l6">
+              <label style="color: #232f3e">
+                <b>How much of (Choose at least 1 course)</b>
+              </label>
+              <select
+                id="chartSourceCourses"
+                class="w3-select"
+                multiple="multiple"
+                onchange="determineGenerateChartButtonState()"
+                size="<% let size = 0; Object.values(it.courses).forEach((courses) => { size += courses.length; }); %><%= size %>"
+              >
+                <%_ Object.keys(it.courses).sort().forEach(function(certificationLevel) { %> <%_ it.courses[certificationLevel].forEach(function(course) { %>
+                <option value="<%= course.code %>"><%= course.title %></option>
+                <%_ }) %> <%_ }) %>
+              </select>
+            </div>
+            <div class="w3-col w3-center s0 m2 l3">
+              <span>&nbsp;</span>
+            </div>
+          </div>
+
+          <div class="w3-row" style="margin-top: 8px">
+            <div class="w3-col w3-center s0 m2 l3">
+              <span>&nbsp;</span>
+            </div>
+            <div class="w3-col s12 m8 l6">
+              <label style="color: #232f3e">
+                <b>Is shared with (Choose at least 1 course)</b>
+              </label>
+              <select id="chartTargetCourse" class="w3-select" onchange="determineGenerateChartButtonState()">
+                <%_ Object.keys(it.courses).sort().forEach(function(certificationLevel) { %> <%_ it.courses[certificationLevel].forEach(function(course) { %>
+                <option value="<%= course.code %>"><%= course.title %></option>
+                <%_ }) %> <%_ }) %>
+              </select>
+            </div>
+            <div class="w3-col w3-center s0 m2 l3">
+              <span>&nbsp;</span>
+            </div>
+          </div>
+
+          <div class="w3-row" style="margin-top: 8px">
+            <div class="w3-col w3-center s0 m2 l3">
+              <span>&nbsp;</span>
+            </div>
+            <div class="w3-col s12 m8 l6">
+              <label style="color: #232f3e">
+                <b>Across</b>
+              </label>
+              <select id="chartScope" class="w3-select" onchange="determineGenerateChartButtonState()">
+                <option value="total">All lectures (Theory + Demo)</option>
+                <option value="theory">Theory lectures only</option>
+                <option value="demo">Demo lectures only</option>
+              </select>
+            </div>
+            <div class="w3-col w3-center s0 m2 l3">
+              <span>&nbsp;</span>
+            </div>
+          </div>
+
+          <div class="w3-row" style="margin-bottom: 8px; margin-top: 8px">
+            <div class="w3-col w3-center s2 m4 l5">
+              <span>&nbsp;</span>
+            </div>
+            <div class="w3-col w3-center s8 m4 l2">
+              <button id="generateChartButton" class="w3-button w3-black w3-block w3-disabled">Go</button>
+            </div>
+            <div class="w3-col w3-center s2 m4 l5">
+              <span>&nbsp;</span>
+            </div>
+          </div>
+
+          <div id="chart" class="w3-container" style="display: none; padding: 0px"></div>
+        </div>
+
+        <div id="aboutDiv" class="w3-container w3-border content-div" style="display: none; overflow-y: auto">
+          <div class="w3-display-container" style="height: 100%">
+            <div class="w3-display-middle">
+              <div class="w3-center">
+                <p class="w3-small">Built by: Sherif Fanous</p>
+                <a href="https://www.linkedin.com/in/sheriffanous/" style="text-decoration: none" target="_blank">
+                  <span><i class="fa fa-linkedin" aria-hidden="true"></i></span>
+                </a>
+                <a href="https://github.com/sfanous/cantrill.io-courses-scraper/" style="text-decoration: none" target="_blank">
+                  <span><i class="fa fa-github" aria-hidden="true"></i></span>
+                </a>
+              </div>
+            </div>
+            <div class="w3-display-bottommiddle">
+              <p class="w3-small w3-opacity">Version: <%= it.version %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

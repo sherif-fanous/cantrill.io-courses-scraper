@@ -1,5 +1,7 @@
 const { JSDOM } = require('jsdom');
 
+const { secondsToHHMMSS } = require('./helpers/time-format.js');
+
 const extractLectureTitleWithDuration = (sectionItemTextContent) => {
   const nonEmptyTokens = [];
 
@@ -11,7 +13,13 @@ const extractLectureTitleWithDuration = (sectionItemTextContent) => {
     }
   }
 
-  return nonEmptyTokens.slice(1).join(' ');
+  /*
+   * Cloudflare obfuscates Lamba@Edge. Manually replace the obfuscation.
+   */
+  return nonEmptyTokens
+    .slice(1)
+    .join(' ')
+    .replace(/\[email\s+protected\]*/, 'Lambda@Edge');
 };
 
 const extractSectionTitle = (sectionTitleTextContent) => {
@@ -24,24 +32,14 @@ const extractSectionTitle = (sectionTitleTextContent) => {
   }
 };
 
-const toHHMMSS = (totalSeconds) => {
-  const hours = Math.floor(totalSeconds / 3600);
-  totalSeconds %= 3600;
-  const minutes = Math.floor(totalSeconds / 60);
-  const seconds = totalSeconds % 60;
-
-  return `${String(hours).padStart(2, 0)}:${String(minutes).padStart(2, 0)}:${String(seconds).padStart(2, 0)}`;
-};
-
 exports.scrapeCourse = async (course) => {
-  console.log(`Scraping ${course.title} @ ${course.url}`);
-
   let courseTheoryCount = 0;
   let courseDemoCount = 0;
   let courseTheoryDurationSeconds = 0;
   let courseDemoDurationSeconds = 0;
 
-  const sections = [];
+  const courseSections = [];
+  const courseLectures = {};
 
   const dom = await JSDOM.fromURL(course.url);
   const sectionDivs = Array.from(dom.window.document.querySelectorAll('.course-section'));
@@ -52,18 +50,23 @@ exports.scrapeCourse = async (course) => {
     let sectionTheoryDurationSeconds = 0;
     let sectionDemoDurationSeconds = 0;
 
-    const lectures = [];
+    const sectionLectures = [];
     const sectionTitle = extractSectionTitle(sectionDiv.querySelector('.section-title').textContent.trim());
     const sectionItemLis = sectionDiv.querySelectorAll('.section-item');
 
     sectionItemLis.forEach((sectionItemLi) => {
       let isVideoLecture = true;
+      let isPracticeExamLecture = false;
+      let isQuestionTechniqueLecture = false;
+      let isQuizLecture = false;
+      let isTheoryLecture = true;
+      let lectureDurationSeconds = 0;
 
       const lectureTitleWithDuration = extractLectureTitleWithDuration(sectionItemLi.textContent.trim());
       const durationMatch = lectureTitleWithDuration.match(/(\d+):(\d+)/);
 
       if (durationMatch !== null) {
-        const lectureDurationSeconds = parseInt(durationMatch[1]) * 60 + parseInt(durationMatch[2]);
+        lectureDurationSeconds = parseInt(durationMatch[1]) * 60 + parseInt(durationMatch[2]);
 
         if (lectureTitleWithDuration.search(/demo/iu) !== -1) {
           courseDemoCount++;
@@ -71,7 +74,13 @@ exports.scrapeCourse = async (course) => {
 
           courseDemoDurationSeconds += lectureDurationSeconds;
           sectionDemoDurationSeconds += lectureDurationSeconds;
+
+          isTheoryLecture = false;
         } else {
+          if (lectureTitleWithDuration.search(/question technique/iu) !== -1) {
+            isQuestionTechniqueLecture = true;
+          }
+
           courseTheoryCount++;
           sectionTheoryCount++;
 
@@ -83,12 +92,39 @@ exports.scrapeCourse = async (course) => {
         sectionTheoryCount++;
 
         isVideoLecture = false;
+
+        if (lectureTitleWithDuration.search(/practice exam/iu) !== -1) {
+          isPracticeExamLecture = true;
+        } else if (lectureTitleWithDuration.search(/quiz/iu) !== -1) {
+          isQuizLecture = true;
+        }
       }
 
-      lectures.push({ isVideo: isVideoLecture, titleWithDuration: lectureTitleWithDuration });
+      const lecture = {
+        titleWithDuration: lectureTitleWithDuration,
+        duration: lectureDurationSeconds,
+        isVideo: isVideoLecture,
+        isTheory: isTheoryLecture,
+        isPracticeExam: isPracticeExamLecture,
+        isQuestionTechnique: isQuestionTechniqueLecture,
+        isQuiz: isQuizLecture,
+        sharedWith: {}
+      };
+
+      sectionLectures.push(lecture);
+
+      courseLectures[
+        `${isTheoryLecture ? '[theory]' : '[demo]'}: ${lecture.titleWithDuration
+          .replace(/\[.*?\]/gi, '')
+          .replace(/\s+/gi, ' ')
+          .replace(/^\s+-/, '')
+          .replace(/\(\d+:\d+\)$/, '')
+          .toLowerCase()
+          .trim()}`
+      ] = lecture;
     });
 
-    sections.push({
+    courseSections.push({
       title: sectionTitle,
       count: {
         total: sectionTheoryCount + sectionDemoCount,
@@ -96,11 +132,15 @@ exports.scrapeCourse = async (course) => {
         demo: sectionDemoCount
       },
       duration: {
-        total: `${toHHMMSS(sectionTheoryDurationSeconds + sectionDemoDurationSeconds)}`,
-        theory: `${toHHMMSS(sectionTheoryDurationSeconds)}`,
-        demo: `${toHHMMSS(sectionDemoDurationSeconds)}`
+        total: {
+          seconds: sectionTheoryDurationSeconds + sectionDemoDurationSeconds,
+          hhmmss: secondsToHHMMSS(sectionTheoryDurationSeconds + sectionDemoDurationSeconds)
+        },
+        theory: { seconds: sectionTheoryDurationSeconds, hhmmss: secondsToHHMMSS(sectionTheoryDurationSeconds) },
+        demo: { seconds: sectionDemoDurationSeconds, hhmmss: secondsToHHMMSS(sectionDemoDurationSeconds) },
+        sharedWith: {}
       },
-      lectures: lectures
+      lectures: sectionLectures
     });
   });
 
@@ -111,12 +151,15 @@ exports.scrapeCourse = async (course) => {
       demo: courseDemoCount
     },
     duration: {
-      total: `${toHHMMSS(courseTheoryDurationSeconds + courseDemoDurationSeconds)}`,
-      theory: `${toHHMMSS(courseTheoryDurationSeconds)}`,
-      demo: `${toHHMMSS(courseDemoDurationSeconds)}`
+      total: {
+        seconds: courseTheoryDurationSeconds + courseDemoDurationSeconds,
+        hhmmss: secondsToHHMMSS(courseTheoryDurationSeconds + courseDemoDurationSeconds)
+      },
+      theory: { seconds: courseTheoryDurationSeconds, hhmmss: secondsToHHMMSS(courseTheoryDurationSeconds) },
+      demo: { seconds: courseDemoDurationSeconds, hhmmss: secondsToHHMMSS(courseDemoDurationSeconds) },
+      sharedWith: {}
     },
-    sections: sections
+    lectures: courseLectures,
+    sections: courseSections
   });
-
-  console.log(`Scraped ${course.title} @ ${course.url}`);
 };

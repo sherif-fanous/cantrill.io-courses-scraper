@@ -1,32 +1,33 @@
 AWSTemplateFormatVersion: 2010-09-09
 
-Description: cantrill.io-courses-scraper Serverless Application
+Description: Template to create the S3 resources required by the cantrill.io-courses-scraper Serverless Application
 
 Outputs:
   CantrillCoursesScraperS3BucketName:
     Description: The name of the S3 bucket
-    Value:
-      Ref: CantrillCoursesScraperS3Bucket
+    Value: !Ref CantrillCoursesScraperS3Bucket
     Export:
-      Name: CantrillCoursesScraperS3BucketName
+      Name: !Join ["", [CantrillCoursesScraperS3BucketName, !Ref Environment]]
 
   CantrillCoursesScraperS3BucketArn:
     Description: The ARN of the S3 bucket
-    Value:
-      Fn::GetAtt:
-        - CantrillCoursesScraperS3Bucket
-        - Arn
+    Value: !GetAtt CantrillCoursesScraperS3Bucket.Arn
     Export:
-      Name: CantrillCoursesScraperS3BucketArn
+      Name: !Join ["", [CantrillCoursesScraperS3BucketArn, !Ref Environment]]
 
   CantrillCoursesScraperS3BucketWebsiteURL:
     Description: The website endpoint of the S3 bucket
-    Value:
-      Fn::GetAtt:
-        - CantrillCoursesScraperS3Bucket
-        - WebsiteURL
+    Value: !GetAtt CantrillCoursesScraperS3Bucket.WebsiteURL
 
 Parameters:
+  Environment:
+    Description: Enter Dev or Prod. Default is Dev
+    Type: String
+    AllowedValues:
+      - Dev
+      - Prod
+    Default: Dev
+
   S3BucketName:
     Description: Enter the name of the S3 bucket
     Type: String
@@ -36,16 +37,14 @@ Resources:
     Type: AWS::S3::Bucket
     DeletionPolicy: Retain
     Properties:
-      BucketName:
-        Ref: S3BucketName
+      BucketName: !Ref S3BucketName
       WebsiteConfiguration:
         IndexDocument: index.html
 
   CantrillCoursesScraperS3BucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
-      Bucket:
-        Ref: CantrillCoursesScraperS3Bucket
+      Bucket: !Ref CantrillCoursesScraperS3Bucket
       PolicyDocument:
         Version: 2012-10-17
         Statement:
@@ -53,10 +52,5 @@ Resources:
               - s3:GetObject
             Effect: Allow
             Resource:
-              Fn::Join:
-                - ""
-                - - Fn::GetAtt:
-                      - CantrillCoursesScraperS3Bucket
-                      - Arn
-                  - /*
+              !Join ["", [!GetAtt CantrillCoursesScraperS3Bucket.Arn, /*]]
             Principal: "*"

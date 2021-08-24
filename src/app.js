@@ -1,51 +1,118 @@
 const fs = require('fs');
+const util = require('util');
+const zlib = require('zlib');
 
-const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
 const Eta = require('eta');
 
+const { analyzeCourses } = require('./lib/analytics');
+const { putS3Object } = require('./lib/s3');
 const { scrapeCourse } = require('./lib/scraper');
 
-const AWS_REGION = process.env.AWS_REGION;
-const COURSES = process.env.COURSES;
-const ETA_TEMPLATE = fs.readFileSync('template/index.eta', { encoding: 'utf-8' });
-const S3_BUCKET_NAME = process.env.S3_BUCKET_NAME;
+const { version } = require('./package.json');
 
-const s3Client = new S3Client({ region: AWS_REGION });
+const COURSES = process.env.COURSES;
+const DEBUG = process.env.DEBUG || false;
 
 Eta.configure({ autoTrim: false });
 
-const putS3Object = async (data) => {
-  const putObjectCommand = new PutObjectCommand({
-    Bucket: S3_BUCKET_NAME,
-    Key: 'index.html',
-    Body: Eta.render(ETA_TEMPLATE, data),
-    ContentType: 'text/html'
-  });
+const processCourses = async (courses) => {
+  const pendingPromises = [];
 
-  await s3Client.send(putObjectCommand);
+  console.log('Scraping courses');
+
+  for (const certificationLevel of Object.keys(courses)) {
+    for (const course of courses[certificationLevel]) {
+      pendingPromises.push(scrapeCourse(course));
+    }
+  }
+
+  for (const pendingPromise of pendingPromises) {
+    await pendingPromise;
+  }
+
+  console.log('Scraped courses');
+
+  console.log('Analyzing courses');
+
+  analyzeCourses(courses);
+
+  console.log('Analyzed courses');
+};
+
+const putS3Objects = async (templates) => {
+  console.log('Uploading templates to S3');
+
+  for (const templateKey of Object.keys(templates)) {
+    const template = templates[templateKey];
+
+    await putS3Object(
+      template.objectKey,
+      template.gzippedRenderedTemplate,
+      template.contentType,
+      template.contentEncoding
+    );
+  }
+
+  console.log('Uploaded templates to S3');
+};
+
+const renderGzipTemplates = async (templates, templateData) => {
+  console.log('Rendering templates');
+
+  for (const templateKey of Object.keys(templates)) {
+    const template = templates[templateKey];
+
+    template.renderedTemplate = Eta.render(fs.readFileSync(template.etaTemplate, { encoding: 'utf-8' }), templateData);
+    template.gzippedRenderedTemplate = await util.promisify(zlib.gzip)(template.renderedTemplate);
+
+    if (DEBUG) {
+      fs.writeFileSync(`output/s3/${template.objectKey}`, template.renderedTemplate);
+    }
+  }
+
+  console.log('Rendered templates');
 };
 
 exports.lambdaHandler = async () => {
   try {
-    const data = {
-      lastUpdateDateTimeUTC: new Date().toUTCString(),
-      courses: JSON.parse(COURSES)
+    const templates = {
+      indexHTML: {
+        etaTemplate: 'template/html/index.html',
+        objectKey: 'index.html',
+        contentType: 'text/html',
+        contentEncoding: 'gzip',
+        renderedTemplate: '',
+        gzippedRenderedTemplate: null
+      },
+      chartJS: {
+        etaTemplate: 'template/js/index.js',
+        objectKey: 'index.js',
+        contentType: 'text/javascript',
+        contentEncoding: 'gzip',
+        renderedTemplate: '',
+        gzippedRenderedTemplate: null
+      }
     };
 
-    const pendingPromises = [];
+    const templateData = {
+      lastUpdateDateTimeUTC: new Date().toUTCString(),
+      courses: JSON.parse(COURSES),
+      version: version
+    };
 
-    for (const certificationLevel of Object.keys(data.courses)) {
-      for (const course of data.courses[certificationLevel]) {
-        pendingPromises.push(scrapeCourse(course));
-      }
+    await processCourses(templateData.courses);
+
+    if (DEBUG) {
+      fs.writeFileSync('output/json/data.json', JSON.stringify(templateData, null, 2));
     }
 
-    for (const pendingPromise of pendingPromises) {
-      await pendingPromise;
-    }
-
-    await putS3Object(data);
+    await renderGzipTemplates(templates, templateData);
+    await putS3Objects(templates);
   } catch (err) {
     console.log(err);
   }
 };
+
+(async () => {
+  process.env.AWS_LAMBDA_FUNCTION_NAME || this.lambdaHandler();
+})();

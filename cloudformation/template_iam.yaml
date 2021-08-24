@@ -1,0 +1,84 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: Template to create the IAM resources required by the cantrill.io-courses-scraper Serverless Application
+
+Outputs:
+  CantrillCoursesScraperLambdaFunctionRoleArn:
+    Description: The ARN of the CantrillCoursesScraperLambdaFunctionRole
+    Value: !GetAtt CantrillCoursesScraperLambdaFunctionRole.Arn
+    Export:
+      Name:
+        !Join [
+          "",
+          [CantrillCoursesScraperLambdaFunctionRoleArn, !Ref Environment],
+        ]
+
+Parameters:
+  Environment:
+    Description: Enter Dev or Prod. Default is Dev
+    Type: String
+    AllowedValues:
+      - Dev
+      - Prod
+    Default: Dev
+
+Resources:
+  CantrillCoursesScraperLambdaFunctionCloudWatchLogsPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      ManagedPolicyName:
+        !Join [
+          "",
+          [
+            CantrillCoursesScraperLambdaFunctionCloudWatchLogsPolicy,
+            !Ref Environment,
+          ],
+        ]
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Resource: "*"
+
+  CantrillCoursesScraperLambdaFunctionS3Policy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      ManagedPolicyName:
+        !Join [
+          "",
+          [CantrillCoursesScraperLambdaFunctionS3Policy, !Ref Environment],
+        ]
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Action:
+              - s3:PutObject
+            Resource: !Join
+              - ""
+              - - !ImportValue
+                  "Fn::Sub": "CantrillCoursesScraperS3BucketArn${Environment}"
+                - /*
+        Version: 2012-10-17
+
+  CantrillCoursesScraperLambdaFunctionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - sts:AssumeRole
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+      ManagedPolicyArns:
+        - !Ref CantrillCoursesScraperLambdaFunctionCloudWatchLogsPolicy
+        - !Ref CantrillCoursesScraperLambdaFunctionS3Policy
+      Path: /
+      RoleName:
+        !Join ["", [CantrillCoursesScraperLambdaFunctionRole, !Ref Environment]]

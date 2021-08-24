@@ -1,63 +1,24 @@
 AWSTemplateFormatVersion: 2010-09-09
 
-Description: cantrill.io-courses-scraper Serverless Application
+Description: Template to create the Lambda & EventBridge resources required by the cantrill.io-courses-scraper Serverless Application
 
 Parameters:
+  Environment:
+    Description: Enter Dev or Prod. Default is Dev
+    Type: String
+    AllowedValues:
+      - Dev
+      - Prod
+    Default: Dev
+
   ScheduleExpression:
     Description: Enter a scheduling expression (https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html)
     Type: String
-    Default: cron(0 16 * * ? *)
+    Default: cron(0 0,8,16 * * ? *)
 
 Resources:
-  CantrillCoursesScraperLambdaFunctionCloudWatchLogsPolicy:
-    Type: AWS::IAM::ManagedPolicy
-    Properties:
-      ManagedPolicyName: CantrillCoursesScraperLambdaFunctionCloudWatchLogsPolicy
-      PolicyDocument:
-        Statement:
-          - Effect: Allow
-            Action:
-              - logs:CreateLogGroup
-              - logs:CreateLogStream
-              - logs:PutLogEvents
-            Resource: "*"
-        Version: 2012-10-17
-
-  CantrillCoursesScraperLambdaFunctionS3Policy:
-    Type: AWS::IAM::ManagedPolicy
-    Properties:
-      ManagedPolicyName: CantrillCoursesScraperLambdaFunctionS3Policy
-      PolicyDocument:
-        Statement:
-          - Effect: Allow
-            Action:
-              - s3:PutObject
-            Resource:
-              Fn::Join:
-                - ""
-                - - Fn::ImportValue: CantrillCoursesScraperS3BucketArn
-                  - /*
-        Version: 2012-10-17
-
-  CantrillCoursesScraperLambdaFunctionRole:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service:
-                - lambda.amazonaws.com
-            Action:
-              - sts:AssumeRole
-        Version: 2012-10-17
-      ManagedPolicyArns:
-        - Ref: CantrillCoursesScraperLambdaFunctionCloudWatchLogsPolicy
-        - Ref: CantrillCoursesScraperLambdaFunctionS3Policy
-      Path: /
-      RoleName: CantrillCoursesScraperLambdaFunctionRole
-
   CantrillCoursesScraperLambdaFunction:
+    Type: AWS::Lambda::Function
     Properties:
       Code:
         S3Bucket: cantrill.io-courses-scraper-cloudformation-artifacts
@@ -66,38 +27,48 @@ Resources:
         Variables:
           COURSES:
             "{\n  \"associate\": [\n      {\n          \"code\": \"dva-c01\"\
-            ,\n          \"title\": \"AWS Certified Developer\",\n          \"url\"\
-            : \"https://learn.cantrill.io/p/aws-certified-developer-associate\"\n\
-            \      },\n      {\n          \"code\": \"saa-c02\",\n          \"title\"\
-            : \"AWS Certified Solutions Architect\",\n          \"url\": \"https://learn.cantrill.io/p/aws-certified-solutions-architect-associate-saa-c02\"\
-            \n      },\n      {\n          \"code\": \"soa-c02\",\n          \"title\"\
-            : \"AWS Certified SysOps Administrator\",\n          \"url\": \"https://learn.cantrill.io/p/aws-certified-sysops-administrator-associate\"\
+            ,\n          \"color\": \"#2c77ea\",\n          \"title\": \"AWS Certified\
+            \ Developer\",\n          \"url\": \"https://learn.cantrill.io/p/aws-certified-developer-associate\"\
+            \n      },\n      {\n          \"code\": \"saa-c02\",\n          \"color\"\
+            : \"#2c77ea\",\n          \"title\": \"AWS Certified Solutions Architect\"\
+            ,\n          \"url\": \"https://learn.cantrill.io/p/aws-certified-solutions-architect-associate-saa-c02\"\
+            \n      },\n      {\n          \"code\": \"soa-c02\",\n          \"color\"\
+            : \"#2c77ea\",\n          \"title\": \"AWS Certified SysOps Administrator\"\
+            ,\n          \"url\": \"https://learn.cantrill.io/p/aws-certified-sysops-administrator-associate\"\
             \n      }\n  ],\n  \"professional\": [\n      {\n          \"code\": \"\
-            sap-c01\",\n          \"title\": \"AWS Certified Solutions Architect\"\
-            ,\n          \"url\": \"https://learn.cantrill.io/p/aws-certified-solutions-architect-professional\"\
+            sap-c01\",\n          \"color\": \"#3dcac0\",\n          \"title\": \"\
+            AWS Certified Solutions Architect\",\n          \"url\": \"https://learn.cantrill.io/p/aws-certified-solutions-architect-professional\"\
             \n      }\n  ],\n  \"specialty\": [\n      {\n          \"code\": \"ans-c01\"\
-            ,\n          \"title\": \"AWS Certified Advanced Networking\",\n     \
-            \     \"url\": \"https://learn.cantrill.io/p/aws-certified-advanced-networking-specialty\"\
+            ,\n          \"color\": \"#4d27aa\",\n          \"title\": \"AWS Certified\
+            \ Advanced Networking\",\n          \"url\": \"https://learn.cantrill.io/p/aws-certified-advanced-networking-specialty\"\
             \n      }\n  ]\n}"
           S3_BUCKET_NAME:
-            Fn::ImportValue: CantrillCoursesScraperS3BucketName
-      FunctionName: CantrillCoursesScraper
+            Fn::ImportValue:
+              Fn::Sub: CantrillCoursesScraperS3BucketName${Environment}
+      FunctionName:
+        Fn::Join:
+          - ""
+          - - CantrillCoursesScraper
+            - Ref: Environment
       Handler: app.lambdaHandler
       MemorySize: 1024
       Role:
-        Fn::GetAtt:
-          - CantrillCoursesScraperLambdaFunctionRole
-          - Arn
+        Fn::ImportValue:
+          Fn::Sub: CantrillCoursesScraperLambdaFunctionRoleArn${Environment}
       Runtime: nodejs14.x
       Tags:
         - Key: lambda:createdBy
           Value: SAM
       Timeout: 60
-    Type: AWS::Lambda::Function
 
   CantrillCoursesScraperLambdaFunctionScheduledEvent:
+    Type: AWS::Events::Rule
     Properties:
-      Name: CantrillCoursesScraperLambdaFunctionScheduledEvent
+      Name:
+        Fn::Join:
+          - ""
+          - - CantrillCoursesScraperLambdaFunctionScheduledEvent
+            - Ref: Environment
       ScheduleExpression:
         Ref: ScheduleExpression
       Targets:
@@ -106,9 +77,9 @@ Resources:
               - CantrillCoursesScraperLambdaFunction
               - Arn
           Id: CantrillCoursesScraperLambdaFunctionScheduledEventLambdaTarget
-    Type: AWS::Events::Rule
 
   CantrillCoursesScraperLambdaFunctionScheduledEventPermission:
+    Type: AWS::Lambda::Permission
     Properties:
       Action: lambda:InvokeFunction
       FunctionName:
@@ -118,4 +89,3 @@ Resources:
         Fn::GetAtt:
           - CantrillCoursesScraperLambdaFunctionScheduledEvent
           - Arn
-    Type: AWS::Lambda::Permission
