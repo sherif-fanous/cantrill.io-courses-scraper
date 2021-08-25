@@ -6,4 +6,4 @@ This simple Serverless application scrapes Adrian Cantrill's AWS courses to gene
 
 The content in the generated `index.html` file addresses a freqeuntly asked question regarding the total duration of any of Adrian's courses.
 
-The solution is currently deployed and can be viewed by visting http://cantrill.io-courses-duration.s3-website.ca-central-1.amazonaws.com
+The solution is currently deployed and can be viewed by visting https://cantrill.io.i-aws.cloud
