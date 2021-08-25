@@ -243,10 +243,17 @@ const generateVennDiagramData = () => {
                 ? `(${sourceCoursesCodes.join(' \u222A ').toUpperCase()})`
                 : `${sourceCoursesCodes[0].toUpperCase()}`
             } \u2229 ${targetCourseCode.toUpperCase()}`,
-            description: `${targetCourseCode.toUpperCase()}: ${(
+            description: `Shared content duration: ${
+              intersectionLectureDuration[scope].hhmmss
+            }<br />Shared content represents ${(
               (intersectionLectureDuration[scope].seconds / courses[targetCourseCode].duration[scope].seconds) *
               100
-            ).toFixed(2)}%`
+            ).toFixed(2)}% of ${targetCourseCode.toUpperCase()}<br /><br />New content duration: ${secondsToHHMMSS(
+              courses[targetCourseCode].duration[scope].seconds - intersectionLectureDuration[scope].seconds
+            )}<br />New content represents ${(
+              100 -
+              (intersectionLectureDuration[scope].seconds / courses[targetCourseCode].duration[scope].seconds) * 100
+            ).toFixed(2)}% of ${targetCourseCode.toUpperCase()}`
           }
         },
         name: `${intersectionLectureDuration[scope].hhmmss}`,

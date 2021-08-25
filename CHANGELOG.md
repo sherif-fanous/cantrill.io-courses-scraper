@@ -1,4 +1,7 @@
-## 2.0.0 2021-08-18
+## 2.1.0 2021-08-25
+- **Feature** Add more details to the tooltip description of the intersection area
+
+## 2.0.0 2021-08-24
 - **Feature** UI/UX redesign
 - **Feature** Added mini icons next to lectures to signify that the lecture is shared with other courses
 - **Feature** Added charts functionality
