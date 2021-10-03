@@ -123,15 +123,25 @@ const generateVennDiagramData = () => {
   const targetCourseCode = $('#chartTargetCourse').val();
   const scope = $('#chartScope').val();
 
+  const processedSourceCoursesCodes = [];
   const sourceLectures = {};
-  const targetLectures = courses[targetCourseCode].lectures;
 
-  Object.assign(
-    sourceLectures,
-    ...sourceCoursesCodes.map((sourceCourseCode) => {
-      return courses[sourceCourseCode].lectures;
-    })
-  );
+  sourceCoursesCodes.forEach((sourceCourseCode) => {
+    sourceLectures[sourceCourseCode] = [];
+
+    Object.keys(courses[sourceCourseCode].lectures).forEach((sourceLectureTitle) => {
+      if (
+        _.intersection(
+          Object.keys(courses[sourceCourseCode].lectures[sourceLectureTitle].sharedWith),
+          processedSourceCoursesCodes
+        ).length === 0
+      ) {
+        sourceLectures[sourceCourseCode].push(courses[sourceCourseCode].lectures[sourceLectureTitle]);
+      }
+    });
+
+    processedSourceCoursesCodes.push(sourceCourseCode);
+  });
 
   const vennDiagramData = [];
 
@@ -146,15 +156,17 @@ const generateVennDiagramData = () => {
         demo: { seconds: 0, hhmmss: '' }
       };
 
-      Object.values(sourceLectures).forEach((sourceLecture) => {
-        sourceCoursesDuration.total.seconds += sourceLecture.duration;
+      Object.values(sourceLectures)
+        .flat()
+        .forEach((sourceLecture) => {
+          sourceCoursesDuration.total.seconds += sourceLecture.duration;
 
-        if (sourceLecture.isTheory) {
-          sourceCoursesDuration.theory.seconds += sourceLecture.duration;
-        } else {
-          sourceCoursesDuration.demo.seconds += sourceLecture.duration;
-        }
-      });
+          if (sourceLecture.isTheory) {
+            sourceCoursesDuration.theory.seconds += sourceLecture.duration;
+          } else {
+            sourceCoursesDuration.demo.seconds += sourceLecture.duration;
+          }
+        });
 
       sourceCoursesDuration.total.hhmmss = secondsToHHMMSS(sourceCoursesDuration.total.seconds);
       sourceCoursesDuration.theory.hhmmss = secondsToHHMMSS(sourceCoursesDuration.theory.seconds);
@@ -204,14 +216,15 @@ const generateVennDiagramData = () => {
    */
   vennDiagramData.push(
     (() => {
-      const intersectionLectureTitles = _.intersection(Object.keys(sourceLectures), Object.keys(targetLectures)).filter(
-        (lectureTitle) => {
-          /*
-           * Skip quizzes
-           */
-          return !sourceLectures[lectureTitle].isQuiz;
-        }
-      );
+      const intersectionLectures = [];
+
+      Object.keys(sourceLectures).forEach((sourceCourseCode) => {
+        sourceLectures[sourceCourseCode].forEach((sourceLecture) => {
+          if (targetCourseCode in sourceLecture.sharedWith && sourceLecture.sharedWith[targetCourseCode]) {
+            intersectionLectures.push(sourceLecture);
+          }
+        });
+      });
 
       const intersectionLectureDuration = {
         total: { seconds: 0, hhmmss: '' },
@@ -219,15 +232,13 @@ const generateVennDiagramData = () => {
         demo: { seconds: 0, hhmmss: '' }
       };
 
-      intersectionLectureTitles.forEach((intersectionLectureTitle) => {
-        const lecture = sourceLectures[intersectionLectureTitle];
+      intersectionLectures.forEach((intersectionLecture) => {
+        intersectionLectureDuration.total.seconds += intersectionLecture.duration;
 
-        intersectionLectureDuration.total.seconds += lecture.duration;
-
-        if (lecture.isTheory) {
-          intersectionLectureDuration.theory.seconds += lecture.duration;
+        if (intersectionLecture.isTheory) {
+          intersectionLectureDuration.theory.seconds += intersectionLecture.duration;
         } else {
-          intersectionLectureDuration.demo.seconds += lecture.duration;
+          intersectionLectureDuration.demo.seconds += intersectionLecture.duration;
         }
       });
 

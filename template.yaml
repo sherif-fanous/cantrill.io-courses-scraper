@@ -31,19 +31,19 @@ Resources:
                   {
                       "code": "dva-c01",
                       "color": "#2c77ea",
-                      "title": "AWS Certified Developer",
+                      "title": "AWS Certified Developer - Associate",
                       "url": "https://learn.cantrill.io/p/aws-certified-developer-associate"
                   },
                   {
                       "code": "saa-c02",
                       "color": "#2c77ea",
-                      "title": "AWS Certified Solutions Architect",
+                      "title": "AWS Certified Solutions Architect - Associate",
                       "url": "https://learn.cantrill.io/p/aws-certified-solutions-architect-associate-saa-c02"
                   },
                   {
                       "code": "soa-c02",
                       "color": "#2c77ea",
-                      "title": "AWS Certified SysOps Administrator",
+                      "title": "AWS Certified SysOps Administrator - Associate",
                       "url": "https://learn.cantrill.io/p/aws-certified-sysops-administrator-associate"
                   }
               ],
@@ -51,7 +51,7 @@ Resources:
                   {
                       "code": "sap-c01",
                       "color": "#3dcac0",
-                      "title": "AWS Certified Solutions Architect",
+                      "title": "AWS Certified Solutions Architect - Professional",
                       "url": "https://learn.cantrill.io/p/aws-certified-solutions-architect-professional"
                   }
               ],
@@ -59,11 +59,12 @@ Resources:
                   {
                       "code": "ans-c01",
                       "color": "#4d27aa",
-                      "title": "AWS Certified Advanced Networking",
+                      "title": "AWS Certified Advanced Networking - Specialty",
                       "url": "https://learn.cantrill.io/p/aws-certified-advanced-networking-specialty"
                   }
               ]
             }
+          DURATION_VARIANCE_PERCENTAGE: 5.0
           S3_BUCKET_NAME: !ImportValue
             "Fn::Sub": "CantrillCoursesScraperS3BucketName${Environment}"
       Events:

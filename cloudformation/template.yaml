@@ -28,20 +28,21 @@ Resources:
           COURSES:
             "{\n  \"associate\": [\n      {\n          \"code\": \"dva-c01\"\
             ,\n          \"color\": \"#2c77ea\",\n          \"title\": \"AWS Certified\
-            \ Developer\",\n          \"url\": \"https://learn.cantrill.io/p/aws-certified-developer-associate\"\
+            \ Developer - Associate\",\n          \"url\": \"https://learn.cantrill.io/p/aws-certified-developer-associate\"\
             \n      },\n      {\n          \"code\": \"saa-c02\",\n          \"color\"\
-            : \"#2c77ea\",\n          \"title\": \"AWS Certified Solutions Architect\"\
+            : \"#2c77ea\",\n          \"title\": \"AWS Certified Solutions Architect - Associate\"\
             ,\n          \"url\": \"https://learn.cantrill.io/p/aws-certified-solutions-architect-associate-saa-c02\"\
             \n      },\n      {\n          \"code\": \"soa-c02\",\n          \"color\"\
-            : \"#2c77ea\",\n          \"title\": \"AWS Certified SysOps Administrator\"\
+            : \"#2c77ea\",\n          \"title\": \"AWS Certified SysOps Administrator - Associate\"\
             ,\n          \"url\": \"https://learn.cantrill.io/p/aws-certified-sysops-administrator-associate\"\
             \n      }\n  ],\n  \"professional\": [\n      {\n          \"code\": \"\
             sap-c01\",\n          \"color\": \"#3dcac0\",\n          \"title\": \"\
-            AWS Certified Solutions Architect\",\n          \"url\": \"https://learn.cantrill.io/p/aws-certified-solutions-architect-professional\"\
+            AWS Certified Solutions Architect - Professional\",\n          \"url\": \"https://learn.cantrill.io/p/aws-certified-solutions-architect-professional\"\
             \n      }\n  ],\n  \"specialty\": [\n      {\n          \"code\": \"ans-c01\"\
             ,\n          \"color\": \"#4d27aa\",\n          \"title\": \"AWS Certified\
-            \ Advanced Networking\",\n          \"url\": \"https://learn.cantrill.io/p/aws-certified-advanced-networking-specialty\"\
+            \ Advanced Networking - Specialty\",\n          \"url\": \"https://learn.cantrill.io/p/aws-certified-advanced-networking-specialty\"\
             \n      }\n  ]\n}"
+          DURATION_VARIANCE_PERCENTAGE: 5.0
           S3_BUCKET_NAME:
             Fn::ImportValue:
               Fn::Sub: CantrillCoursesScraperS3BucketName${Environment}
