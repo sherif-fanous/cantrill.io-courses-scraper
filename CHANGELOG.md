@@ -1,3 +1,7 @@
+## 2.3.0 2021-11-07
+- **Bug Fix** Improved logic used to determine shared lectures
+- **Feature** Added AWS Certified DevOps Engineer course
+
 ## 2.2.0 2021-10-03
 - **Bug Fix** Added lecture duration comparison even in case the lecture titles are identical
 - **Bug Fix** Improved logic used to generate the intersection in the chart

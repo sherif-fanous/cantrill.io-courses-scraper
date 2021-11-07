@@ -53,6 +53,12 @@ Resources:
                       "color": "#3dcac0",
                       "title": "AWS Certified Solutions Architect - Professional",
                       "url": "https://learn.cantrill.io/p/aws-certified-solutions-architect-professional"
+                  },
+                  {
+                      "code": "dop-c01",
+                      "color": "#3DCAC0",
+                      "title": "AWS Certified DevOps Engineer - Professional",
+                      "url": "https://learn.cantrill.io/p/aws-certified-devops-engineer-professional"
                   }
               ],
               "specialty": [

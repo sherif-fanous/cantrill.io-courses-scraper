@@ -1,5 +1,6 @@
 const { Index } = require('flexsearch');
 
+const DEBUG = process.env.DEBUG || false;
 const DURATION_VARIANCE_PERCENTAGE = Number.parseFloat(process.env.DURATION_VARIANCE_PERCENTAGE);
 
 const analyzeCourseSharedContent = (course, otherCourses) => {
@@ -18,13 +19,6 @@ const analyzeCourseSharedContent = (course, otherCourses) => {
         !course.lectures[lectureTitle].isQuestionTechnique &&
         !course.lectures[lectureTitle].isQuiz
       ) {
-        /*
-         * Mark any lecture with the SAAC02SHARED tag as shared with saa-c02
-         */
-        if (course.lectures[lectureTitle].titleWithDuration.match(/SAAC02SHARED/gi) !== null) {
-          course.lectures[lectureTitle].sharedWith['saa-c02'] = true;
-        }
-
         let lecture = null;
         let otherLecture = null;
         /*
@@ -49,9 +43,31 @@ const analyzeCourseSharedContent = (course, otherCourses) => {
               100
             ).toFixed(2);
 
-            if (durationDeltaPercentage < DURATION_VARIANCE_PERCENTAGE) {
+            if (durationDeltaPercentage <= DURATION_VARIANCE_PERCENTAGE) {
               lecture.sharedWith[otherCourse.code] = true;
               otherLecture.sharedWith[course.code] = true;
+
+              if (DEBUG && durationDeltaPercentage > 0.0) {
+                console.log(
+                  `${course.code} => ${lecture.titleWithDuration}\n${otherCourse.code} => ${
+                    otherLecture.titleWithDuration
+                  }\n${'='.repeat(80)}`
+                );
+              }
+            } else if (
+              (lecture.titleWithDuration.match(/SAAC02SHARED/gi) !== null && otherCourse.code === 'saa-c02') ||
+              (otherLecture.titleWithDuration.match(/SAAC02SHARED/gi) != null && course.code === 'saa-c02')
+            ) {
+              lecture.sharedWith[otherCourse.code] = true;
+              otherLecture.sharedWith[course.code] = true;
+
+              if (DEBUG) {
+                console.log(
+                  `${course.code} => ${lecture.titleWithDuration}\n${otherCourse.code} => ${
+                    otherLecture.titleWithDuration
+                  }\n${'='.repeat(80)}`
+                );
+              }
             }
           } else if (!lecture.isVideo && !otherLecture.isVideo) {
             lecture.sharedWith[otherCourse.code] = true;

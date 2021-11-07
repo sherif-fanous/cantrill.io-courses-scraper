@@ -69,8 +69,6 @@ const drawChart = () => {
     series: [
       {
         type: 'venn',
-        name: 'DVA-C01 \u2229 SAA-C02',
-        // Series data
         data: generateVennDiagramData(),
         dataLabels: {
           style: {
