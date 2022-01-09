@@ -1,9 +1,10 @@
 {
   "author": "Sherif Fanous",
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.25.0",
+    "@aws-sdk/client-s3": "^3.46.0",
+    "@aws-sdk/signature-v4-crt": "^3.46.0",
     "eta": "^1.12.3",
-    "flexsearch": "^0.7.21",
+    "fuzzyset": "^1.0.7",
     "jsdom": "^16.6.0"
   },
   "description": "Scrapes Adrian Cantrill's (cantrill.io) AWS courses and uploads the output to an S3 bucket hosting a static website",
@@ -12,10 +13,10 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-semistandard": "^16.0.0",
     "eslint-config-standard": "^16.0.3",
-    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^5.1.0",
-    "prettier": "^2.3.2"
+    "eslint-plugin-promise": "^5.2.0",
+    "prettier": "^2.5.1"
   },
   "keywords": [],
   "license": "MIT",
@@ -45,5 +46,5 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "type": "commonjs",
-  "version": "2.3.0"
+  "version": "2.4.0"
 }

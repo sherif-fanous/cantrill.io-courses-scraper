@@ -71,6 +71,9 @@ Resources:
               ]
             }
           DURATION_VARIANCE_PERCENTAGE: 5.0
+          FUZZY_SET_MINIMUM_SCORE_MATCH: 0.7
+          FUZZY_SET_INVALID_MATCHES: ""
+          LECTURES_SKIP_LIST: ""
           S3_BUCKET_NAME: !ImportValue
             "Fn::Sub": "CantrillCoursesScraperS3BucketName${Environment}"
       Events:

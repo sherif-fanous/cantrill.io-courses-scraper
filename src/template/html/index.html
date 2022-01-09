@@ -228,7 +228,7 @@
                       <i class="fa <% if(lecture.isVideo) { %>fa-youtube-play<% } else if (lecture.isPracticeExam || lecture.isQuiz) { %>fa-lightbulb-o<% } else { %>fa-file-text<% } %>" aria-hidden="true"></i>
                     </span>
                     &nbsp;<%= lecture.titleWithDuration %> <%_ Object.keys(lecture.sharedWith).forEach(function(courseCode) { %>
-                    <span aria-label="Shared with <%= courseCode.toUpperCase() %>" data-balloon-pos="up" style="color: <%= Object.values(it.courses) .flat() .filter((course) => courseCode === course.code) [0].color %>">
+                    <span aria-label="Shared with <%= courseCode.toUpperCase() %>: <%= lecture.sharedWith[courseCode] %>" data-balloon-pos="up" style="color: <%= Object.values(it.courses) .flat() .filter((course) => courseCode === course.code) [0].color %>">
                       <i class="fa fa-dot-circle-o"></i>
                     </span>
                     <%_ }) %>

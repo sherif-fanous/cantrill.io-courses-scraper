@@ -47,6 +47,9 @@ Resources:
             \ Advanced Networking - Specialty\",\n          \"url\": \"https://learn.cantrill.io/p/aws-certified-advanced-networking-specialty\"\
             \n      }\n  ]\n}"
           DURATION_VARIANCE_PERCENTAGE: 5.0
+          FUZZY_SET_MINIMUM_SCORE_MATCH: 0.7
+          FUZZY_SET_INVALID_MATCHES: ""
+          LECTURES_SKIP_LIST: ""
           S3_BUCKET_NAME:
             Fn::ImportValue:
               Fn::Sub: CantrillCoursesScraperS3BucketName${Environment}

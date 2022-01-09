@@ -108,7 +108,12 @@ exports.scrapeCourse = async (course) => {
         isPracticeExam: isPracticeExamLecture,
         isQuestionTechnique: isQuestionTechniqueLecture,
         isQuiz: isQuizLecture,
-        sharedWith: {}
+        sharedWith: {},
+        tags: Array.from(lectureTitleWithDuration.matchAll(/(\[.*?\])/g))
+          .map((match) => {
+            return match[0];
+          })
+          .sort()
       };
 
       sectionLectures.push(lecture);
