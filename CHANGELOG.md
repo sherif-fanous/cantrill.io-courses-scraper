@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.5.0 2022-01-17
+
+- **Feature** Added Study Guide functionality
+- Code cleanup and refactoring
+
 ## 2.4.0 2022-01-09
 
 - Replaced flexsearch with fuzzyset.js

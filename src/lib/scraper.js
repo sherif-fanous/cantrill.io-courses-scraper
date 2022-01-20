@@ -77,7 +77,11 @@ exports.scrapeCourse = async (course) => {
 
           isTheoryLecture = false;
         } else {
-          if (lectureTitleWithDuration.search(/question technique/iu) !== -1) {
+          if (
+            lectureTitleWithDuration.search(/exam question/iu) !== -1 ||
+            lectureTitleWithDuration.search(/exam technique/iu) !== -1 ||
+            lectureTitleWithDuration.search(/question technique/iu) !== -1
+          ) {
             isQuestionTechniqueLecture = true;
           }
 

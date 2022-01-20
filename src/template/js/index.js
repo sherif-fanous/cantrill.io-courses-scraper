@@ -56,6 +56,37 @@ const determineGenerateChartButtonState = () => {
   }
 };
 
+const determineGenerateStudyGuideButtonState = () => {
+  const sourceCourseCode = $('#studyGuideSourceCourse').val();
+  const targetCoursesCodes = $('#studyGuideTargetCourses').val();
+
+  if (
+    sourceCourseCode !== null &&
+    targetCoursesCodes.length !== 0 &&
+    _.intersection(targetCoursesCodes, [sourceCourseCode]).length === 0
+  ) {
+    $('#generateStudyGuideButton').removeClass('w3-disabled');
+    $('#generateStudyGuideButton').on('click', generateStudyGuideTemplate);
+  } else {
+    $('#generateStudyGuideButton').addClass('w3-disabled');
+    $('#generateStudyGuideButton').off('click');
+  }
+};
+
+const downloadStudyGuide = (fileName, fileContent) => {
+  const element = document.createElement('a');
+
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(fileContent));
+  element.setAttribute('download', fileName);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+};
+
 const drawChart = () => {
   const options = {
     chart: {
@@ -114,6 +145,84 @@ const drawChart = () => {
   chartDiv.show();
 
   Highcharts.chart('chart', options);
+};
+
+const generateStudyGuideTemplate = () => {
+  const sourceCourseCode = $('#studyGuideSourceCourse').val();
+  const targetCoursesCodes = $('#studyGuideTargetCourses').val();
+
+  let studyGuideTheoryCount = 0;
+  let studyGuideDemoCount = 0;
+  let studyGuideTheoryDurationSeconds = 0;
+  let studyGuideDemoDurationSeconds = 0;
+
+  const studyGuide = {};
+
+  for (const section of courses[sourceCourseCode].sections) {
+    for (const lecture of section.lectures) {
+      if (lecture.isPracticeExam || lecture.isQuiz) {
+        continue;
+      }
+
+      if (_.intersection(Object.keys(lecture.sharedWith), targetCoursesCodes).length === 0) {
+        if (section.title in studyGuide) {
+          studyGuide[section.title].push(lecture);
+        } else {
+          studyGuide[section.title] = [lecture];
+        }
+
+        if (lecture.isTheory) {
+          studyGuideTheoryCount++;
+          studyGuideTheoryDurationSeconds += lecture.duration;
+        } else {
+          studyGuideDemoCount++;
+          studyGuideDemoDurationSeconds += lecture.duration;
+        }
+      }
+    }
+  }
+
+  const generatedStudyGuide = [
+    `Study guide summary for lectures in ${sourceCourseCode.toUpperCase()} not shared with ${targetCoursesCodes
+      .map((targetCourseCode) => {
+        return targetCourseCode.toUpperCase();
+      })
+      .join(', ')
+      .replace(/, ([^, ]*)$/, ', and ' + '$1')}`
+  ];
+
+  generatedStudyGuide.push('='.repeat(generatedStudyGuide[0].length));
+  generatedStudyGuide.push(`Total Lectures:  ${studyGuideTheoryCount + studyGuideDemoCount}`);
+  generatedStudyGuide.push(`Theory Lectures: ${studyGuideTheoryCount}`);
+  generatedStudyGuide.push(`Demo Lectures:   ${studyGuideDemoCount}`);
+  generatedStudyGuide.push('');
+  generatedStudyGuide.push(
+    `Total Duration:  ${secondsToHHMMSS(studyGuideTheoryDurationSeconds + studyGuideDemoDurationSeconds)}`
+  );
+  generatedStudyGuide.push(`Theory Duration: ${secondsToHHMMSS(studyGuideTheoryDurationSeconds)}`);
+  generatedStudyGuide.push(`Demo Duration:   ${secondsToHHMMSS(studyGuideDemoDurationSeconds)}`);
+  generatedStudyGuide.push('');
+
+  for (const section of courses[sourceCourseCode].sections) {
+    if (section.title in studyGuide) {
+      const sectionDuration = secondsToHHMMSS(
+        studyGuide[section.title].reduce((previousDuration, lecture) => {
+          return previousDuration + lecture.duration;
+        }, 0)
+      );
+
+      generatedStudyGuide.push(`${section.title} (${sectionDuration})`);
+      generatedStudyGuide.push('='.repeat(generatedStudyGuide[generatedStudyGuide.length - 1].length));
+
+      for (const lecture of studyGuide[section.title]) {
+        generatedStudyGuide.push(lecture.titleWithDuration);
+      }
+
+      generatedStudyGuide.push('');
+    }
+  }
+
+  downloadStudyGuide(`${sourceCourseCode.toUpperCase()} Study Guide.txt`, generatedStudyGuide.join('\n'));
 };
 
 const generateVennDiagramData = () => {

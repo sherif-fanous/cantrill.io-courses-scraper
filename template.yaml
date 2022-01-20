@@ -25,55 +25,12 @@ Resources:
       CodeUri: src/
       Environment:
         Variables:
-          COURSES: >-
-            {
-              "associate": [
-                  {
-                      "code": "dva-c01",
-                      "color": "#2c77ea",
-                      "title": "AWS Certified Developer - Associate",
-                      "url": "https://learn.cantrill.io/p/aws-certified-developer-associate"
-                  },
-                  {
-                      "code": "saa-c02",
-                      "color": "#2c77ea",
-                      "title": "AWS Certified Solutions Architect - Associate",
-                      "url": "https://learn.cantrill.io/p/aws-certified-solutions-architect-associate-saa-c02"
-                  },
-                  {
-                      "code": "soa-c02",
-                      "color": "#2c77ea",
-                      "title": "AWS Certified SysOps Administrator - Associate",
-                      "url": "https://learn.cantrill.io/p/aws-certified-sysops-administrator-associate"
-                  }
-              ],
-              "professional": [
-                  {
-                      "code": "sap-c01",
-                      "color": "#3dcac0",
-                      "title": "AWS Certified Solutions Architect - Professional",
-                      "url": "https://learn.cantrill.io/p/aws-certified-solutions-architect-professional"
-                  },
-                  {
-                      "code": "dop-c01",
-                      "color": "#3DCAC0",
-                      "title": "AWS Certified DevOps Engineer - Professional",
-                      "url": "https://learn.cantrill.io/p/aws-certified-devops-engineer-professional"
-                  }
-              ],
-              "specialty": [
-                  {
-                      "code": "ans-c01",
-                      "color": "#4d27aa",
-                      "title": "AWS Certified Advanced Networking - Specialty",
-                      "url": "https://learn.cantrill.io/p/aws-certified-advanced-networking-specialty"
-                  }
-              ]
-            }
+          COURSES: "config_files/courses.json"
           DURATION_VARIANCE_PERCENTAGE: 5.0
+          FORCED_MATCHES: "config_files/forced_matches.json"
           FUZZY_SET_MINIMUM_SCORE_MATCH: 0.7
-          FUZZY_SET_INVALID_MATCHES: ""
-          LECTURES_SKIP_LIST: ""
+          FUZZY_SET_INVALID_MATCHES: "config_files/fuzzyset_invalid_matches.json"
+          SKIPPED_MATCHES: "config_files/skipped_matches.json"
           S3_BUCKET_NAME: !ImportValue
             "Fn::Sub": "CantrillCoursesScraperS3BucketName${Environment}"
       Events:

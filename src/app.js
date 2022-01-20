@@ -5,7 +5,7 @@ const zlib = require('zlib');
 const Eta = require('eta');
 
 const { analyzeCourses } = require('./lib/analytics');
-const { putS3Object } = require('./lib/s3');
+const { getS3Object, putS3Object } = require('./lib/s3');
 const { scrapeCourse } = require('./lib/scraper');
 
 const { version } = require('./package.json');
@@ -34,7 +34,7 @@ const processCourses = async (courses) => {
 
   console.log('Analyzing courses');
 
-  analyzeCourses(courses);
+  await analyzeCourses(courses);
 
   console.log('Analyzed courses');
 };
@@ -96,7 +96,7 @@ exports.lambdaHandler = async () => {
 
     const templateData = {
       lastUpdateDateTimeUTC: new Date().toUTCString(),
-      courses: JSON.parse(COURSES),
+      courses: JSON.parse(await getS3Object(COURSES)),
       version: version
     };
 

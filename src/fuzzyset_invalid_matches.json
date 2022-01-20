@@ -1,0 +1,15 @@
+{
+  "[ASSOCIATESHARED] Architecture Deep Dive - PART2 (13:09)": [
+    "[REFRESHER] ELB Architecture & Network Architecture - PART2 (12:32)",
+    "[REFRESHER] ELB Architecture - PART2 (12:49)"
+  ],
+  "[ASSOCIATESHARED] Relational Database Service (RDS) Architecture (10:27)": ["DR Architecture - Database (10:20)"],
+  "[ASSOCIATESHARED] Simple Storage Service (S3) Basics (15:48)": ["[ASSOCIATESHARED] Simple Queue Service (15:30)"],
+  "[DEMO] Implementing AWS & On-premises Hybrid DNS - PART1 (8:04)": [
+    "[DEMO] Implementing AWS Workspaces - PART1 (8:26)"
+  ],
+  "[DEMO] Implementing AWS & On-premises Hybrid DNS - PART2 (6:56)": [
+    "[DEMO] Implementing AWS Workspaces - PART2 (15:36)"
+  ],
+  "Public Introduction (3:56)": ["Public Introduction (4:07)"]
+}

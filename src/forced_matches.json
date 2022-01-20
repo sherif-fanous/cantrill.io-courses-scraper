@@ -1,0 +1,35 @@
+{
+  "AWS WAF & Shield (13:09)": ["Web Application Firewall (WAF) & Shield (12:41)"],
+  "Amazon Athena (6:51)": ["[SAAC02SHARED] Athena (8:52)"],
+  "Encryption 101 - PART2 (6:42)": ["[ASSOCIATESHARED] Encryption 101 - Part 2 (7:10)"],
+  "VPC Flow Logs (9:56)": ["[SAAC02SHARED] VPC Flow Logs (10:35)"],
+  "[202102UPDATE] [DEMO] Athena Demo - PART2 (11:21)": ["[SAAC02SHARES] [DEMO] Athena - Part 2 (11:21)"],
+  "[ASSOCIATESHARED] CloudFront Security - OAI & Custom Origins (8:50)": [
+    "[ASSOCIATESHARED] Securing CF and S3 using OAI (8:50)"
+  ],
+  "[ASSOCIATESHARED] DynamoDB Indexes (LSI and GSI) (12:35)": [
+    "[ASSOCIATESHARED] DynamoDB Local and Global Secondary Indexes (12:35)"
+  ],
+  "[ASSOCIATESHARED] Securing CF and S3 using OAI (8:50)": [
+    "[ASSOCIATESHARED] CloudFront Security - OAI & Custom Origins (8:50)"
+  ],
+  "[ASSOCIATESHARED] [DEMO] Adding an Alternate CNAME and SSL to CloudFront [NEWUI] (11:14)": [
+    "[202111UPDATE] [ASSOCIATESHARED] [DEMO] Adding a Custom Domain and HTTPS to a cloudFront distribution using ACM (11:14)"
+  ],
+  "[AdvancedDemo] Architecture Evolution - STAGE 3 (19:22)": [
+    "[ASSOCIATESHARED] [AdvancedDemo] Architecture Evolution - STAGE3 (19:22)"
+  ],
+  "[AdvancedDemo] Architecture Evolution - STAGE 4 (18:20)": [
+    "[ASSOCIATESHARED] [AdvancedDemo] Architecture Evolution - STAGE4 (18:20)"
+  ],
+  "[AdvancedDemo] Architecture Evolution - STAGE 6 (9:14)": [
+    "[ASSOCIATESHARED] [AdvancedDemo] Architecture Evolution - STAGE6 (9:14)"
+  ],
+  "[AdvancedDemo] Architecture Evolution - STAGE 7 (5:59)": [
+    "[ASSOCIATESHARED] [AdvancedDemo] Architecture Evolution - STAGE7 (5:59)"
+  ],
+  "[SAAC02SHARED] VPC Flow logs (11:16)": ["[SAAC02SHARED] VPC Flow Logs (10:35)", "VPC Flow Logs (9:56)"],
+  "[Updated 202105] [DEMO] Creating  an AWS Account [NEWUI] (14:00)": [
+    "[DEMO] Creating the GENERAL AWS Account (14:00)"
+  ]
+}

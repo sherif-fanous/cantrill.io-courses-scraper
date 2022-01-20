@@ -1,11 +1,12 @@
 {
   "author": "Sherif Fanous",
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.46.0",
-    "@aws-sdk/signature-v4-crt": "^3.46.0",
+    "@aws-sdk/client-s3": "^3.47.0",
+    "@aws-sdk/signature-v4-crt": "^3.47.0",
     "eta": "^1.12.3",
     "fuzzyset": "^1.0.7",
-    "jsdom": "^16.6.0"
+    "jsdom": "^16.6.0",
+    "node-fetch": "^2.6.7"
   },
   "description": "Scrapes Adrian Cantrill's (cantrill.io) AWS courses and uploads the output to an S3 bucket hosting a static website",
   "devDependencies": {
@@ -46,5 +47,5 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "type": "commonjs",
-  "version": "2.4.0"
+  "version": "2.5.0"
 }
