@@ -1,13 +1,13 @@
 const FuzzySet = require('fuzzyset');
 
-const { getS3Object } = require('../lib/s3');
+const { getS3Object } = require('./s3');
 
 const DEBUG = process.env.DEBUG || false;
 const DURATION_VARIANCE_PERCENTAGE = Number.parseFloat(process.env.DURATION_VARIANCE_PERCENTAGE);
-const FORCED_MATCHES = process.env.FORCED_MATCHES;
-const FUZZY_SET_INVALID_MATCHES = process.env.FUZZY_SET_INVALID_MATCHES;
+const FORCED_MATCHES_S3_KEY = process.env.FORCED_MATCHES_S3_KEY;
+const FUZZY_SET_INVALID_MATCHES_S3_KEY = process.env.FUZZY_SET_INVALID_MATCHES_S3_KEY;
 const FUZZY_SET_MINIMUM_SCORE_MATCH = Number.parseFloat(process.env.FUZZY_SET_MINIMUM_SCORE_MATCH);
-const SKIPPED_MATCHES = process.env.SKIPPED_MATCHES;
+const SKIPPED_MATCHES_S3_KEY = process.env.SKIPPED_MATCHES_S3_KEY;
 
 const analyzeCourseSharedContent = (course, otherCourses, configuration) => {
   for (const otherCourse of otherCourses) {
@@ -104,11 +104,13 @@ const analyzeCourseSharedContent = (course, otherCourses, configuration) => {
                 lecture.sharedWith[otherCourse.code] = otherLecture.titleWithDuration;
                 otherLecture.sharedWith[course.code] = lecture.titleWithDuration;
 
-                console.log(
-                  `Forced Match\n${course.code} => ${lecture.titleWithDuration}\n${otherCourse.code} => ${
-                    otherLecture.titleWithDuration
-                  }\n${'='.repeat(80)}`
-                );
+                if (DEBUG) {
+                  console.log(
+                    `Forced Match\n${course.code} => ${lecture.titleWithDuration}\n${otherCourse.code} => ${
+                      otherLecture.titleWithDuration
+                    }\n${'='.repeat(80)}`
+                  );
+                }
 
                 break;
               }
@@ -121,7 +123,7 @@ const analyzeCourseSharedContent = (course, otherCourses, configuration) => {
 };
 
 const initializeConfiguration = async () => {
-  const forcedMatches = JSON.parse(await getS3Object(FORCED_MATCHES));
+  const forcedMatches = JSON.parse(await getS3Object(FORCED_MATCHES_S3_KEY));
 
   for (const titleWithDuration of Object.keys(forcedMatches)) {
     forcedMatches[titleWithDuration.toLowerCase()] = forcedMatches[titleWithDuration].map(
@@ -146,8 +148,8 @@ const initializeConfiguration = async () => {
 
   return {
     forcedMatches: forcedMatches,
-    fuzzySetInvalidMatches: JSON.parse(await getS3Object(FUZZY_SET_INVALID_MATCHES)),
-    skippedMatches: JSON.parse(await getS3Object(SKIPPED_MATCHES))
+    fuzzySetInvalidMatches: JSON.parse(await getS3Object(FUZZY_SET_INVALID_MATCHES_S3_KEY)),
+    skippedMatches: JSON.parse(await getS3Object(SKIPPED_MATCHES_S3_KEY))
   };
 };
 

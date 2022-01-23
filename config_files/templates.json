@@ -1,0 +1,18 @@
+{
+  "indexHTML": {
+    "etaTemplate": "templates/html/index.html",
+    "objectKey": "index.html",
+    "contentType": "text/html",
+    "contentEncoding": "gzip",
+    "renderedTemplate": "",
+    "gzippedRenderedTemplate": null
+  },
+  "indexJS": {
+    "etaTemplate": "templates/js/index.js",
+    "objectKey": "index.js",
+    "contentType": "text/javascript",
+    "contentEncoding": "gzip",
+    "renderedTemplate": "",
+    "gzippedRenderedTemplate": null
+  }
+}

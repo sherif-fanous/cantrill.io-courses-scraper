@@ -12,6 +12,7 @@ const { version } = require('./package.json');
 
 const COURSES = process.env.COURSES;
 const DEBUG = process.env.DEBUG || false;
+const TEMPLATES_S3_KEY = process.env.TEMPLATES_S3_KEY;
 
 Eta.configure({ autoTrim: false });
 
@@ -62,7 +63,7 @@ const renderGzipTemplates = async (templates, templateData) => {
   for (const templateKey of Object.keys(templates)) {
     const template = templates[templateKey];
 
-    template.renderedTemplate = Eta.render(fs.readFileSync(template.etaTemplate, { encoding: 'utf-8' }), templateData);
+    template.renderedTemplate = Eta.render(await getS3Object(template.etaTemplate), templateData);
     template.gzippedRenderedTemplate = await util.promisify(zlib.gzip)(template.renderedTemplate);
 
     if (DEBUG) {
@@ -75,25 +76,6 @@ const renderGzipTemplates = async (templates, templateData) => {
 
 exports.lambdaHandler = async () => {
   try {
-    const templates = {
-      indexHTML: {
-        etaTemplate: 'template/html/index.html',
-        objectKey: 'index.html',
-        contentType: 'text/html',
-        contentEncoding: 'gzip',
-        renderedTemplate: '',
-        gzippedRenderedTemplate: null
-      },
-      chartJS: {
-        etaTemplate: 'template/js/index.js',
-        objectKey: 'index.js',
-        contentType: 'text/javascript',
-        contentEncoding: 'gzip',
-        renderedTemplate: '',
-        gzippedRenderedTemplate: null
-      }
-    };
-
     const templateData = {
       lastUpdateDateTimeUTC: new Date().toUTCString(),
       courses: JSON.parse(await getS3Object(COURSES)),
@@ -105,6 +87,8 @@ exports.lambdaHandler = async () => {
     if (DEBUG) {
       fs.writeFileSync('output/json/data.json', JSON.stringify(templateData, null, 2));
     }
+
+    const templates = JSON.parse(await getS3Object(TEMPLATES_S3_KEY));
 
     await renderGzipTemplates(templates, templateData);
     await putS3Objects(templates);

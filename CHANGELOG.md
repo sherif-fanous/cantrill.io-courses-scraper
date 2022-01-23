@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.6.0 2022-01-17
+
+- Code cleanup and refactoring
+
 ## 2.5.0 2022-01-17
 
 - **Feature** Added Study Guide functionality

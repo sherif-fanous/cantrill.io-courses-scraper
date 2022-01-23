@@ -27,12 +27,13 @@ Resources:
         Variables:
           COURSES: "config_files/courses.json"
           DURATION_VARIANCE_PERCENTAGE: 5.0
-          FORCED_MATCHES: "config_files/forced_matches.json"
+          FORCED_MATCHES_S3_KEY: "config_files/forced_matches.json"
           FUZZY_SET_MINIMUM_SCORE_MATCH: 0.7
-          FUZZY_SET_INVALID_MATCHES: "config_files/fuzzyset_invalid_matches.json"
-          SKIPPED_MATCHES: "config_files/skipped_matches.json"
+          FUZZY_SET_INVALID_MATCHES_S3_KEY: "config_files/fuzzyset_invalid_matches.json"
+          SKIPPED_MATCHES_S3_KEY: "config_files/skipped_matches.json"
           S3_BUCKET_NAME: !ImportValue
             "Fn::Sub": "CantrillCoursesScraperS3BucketName${Environment}"
+          TEMPLATES_S3_KEY: "config_files/templates.json"
       Events:
         ScheduledEvent:
           Type: Schedule
