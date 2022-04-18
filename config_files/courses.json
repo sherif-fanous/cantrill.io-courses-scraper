@@ -39,6 +39,12 @@
       "color": "#4d27aa",
       "title": "AWS Certified Advanced Networking - Specialty",
       "url": "https://learn.cantrill.io/p/aws-certified-advanced-networking-specialty"
+    },
+    {
+      "code": "scs-c01",
+      "color": "#4d27aa",
+      "title": "AWS Certified Security - Specialty",
+      "url": "https://learn.cantrill.io/p/aws-certified-security-specialty"
     }
   ]
 }
