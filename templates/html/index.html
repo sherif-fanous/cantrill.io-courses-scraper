@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html style="overflow: hidden">
   <head>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-L8GTER6Q40"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-L8GTER6Q40");
+    </script>
+    
     <title>Cantrill.io Courses Duration</title>
 
     <meta charset="UTF-8" />
@@ -57,17 +72,67 @@
   <body class="w3-sans-serif" style="height: 100%">
     <div>
       <div id="navigationBarDiv" style="padding: 0.01em 16px">
-        <div class="w3-bar" id="navigationBarButtonsDiv" style="background-color: #232f3e; padding: 1px">
-          <button id="introButton" class="w3-bar-item w3-button w3-mobile navigation-button" onclick="openContentDiv('introButton', 'introDiv')" style="color: #ffffff !important; background-color: #ff9900 !important">Introduction</button>
-          <button id="coursesButton" class="w3-bar-item w3-button w3-mobile navigation-button" onclick="openContentDiv('coursesButton', 'coursesDiv')" style="color: #ffffff !important">Courses</button>
-          <button id="chartsButton" class="w3-bar-item w3-button w3-mobile navigation-button" onclick="openContentDiv('chartsButton', 'chartsDiv')" style="color: #ffffff !important">Charts</button>
-          <button id="studyGuideButton" class="w3-bar-item w3-button w3-mobile navigation-button" onclick="openContentDiv('studyGuideButton', 'studyGuideDiv')" style="color: #ffffff !important">Study Guide</button>
-          <button id="aboutButton" class="w3-bar-item w3-button w3-mobile navigation-button" onclick="openContentDiv('aboutButton', 'aboutDiv')" style="color: #ffffff !important">About</button>
+        <div
+          class="w3-bar"
+          id="navigationBarButtonsDiv"
+          style="background-color: #232f3e; padding: 1px"
+        >
+          <button
+            id="introButton"
+            class="w3-bar-item w3-button w3-mobile navigation-button"
+            onclick="openContentDiv('introButton', 'introDiv')"
+            style="
+              color: #ffffff !important;
+              background-color: #ff9900 !important;
+            "
+          >
+            Introduction
+          </button>
+          <button
+            id="coursesButton"
+            class="w3-bar-item w3-button w3-mobile navigation-button"
+            onclick="openContentDiv('coursesButton', 'coursesDiv')"
+            style="color: #ffffff !important"
+          >
+            Courses
+          </button>
+          <button
+            id="chartsButton"
+            class="w3-bar-item w3-button w3-mobile navigation-button"
+            onclick="openContentDiv('chartsButton', 'chartsDiv')"
+            style="color: #ffffff !important"
+          >
+            Charts
+          </button>
+          <button
+            id="studyGuideButton"
+            class="w3-bar-item w3-button w3-mobile navigation-button"
+            onclick="openContentDiv('studyGuideButton', 'studyGuideDiv')"
+            style="color: #ffffff !important"
+          >
+            Study Guide
+          </button>
+          <button
+            id="aboutButton"
+            class="w3-bar-item w3-button w3-mobile navigation-button"
+            onclick="openContentDiv('aboutButton', 'aboutDiv')"
+            style="color: #ffffff !important"
+          >
+            About
+          </button>
         </div>
       </div>
 
-      <div class="w3-container" id="contentDiv" style="left: 0px; position: relative; top: 16px; width: 100%">
-        <div id="introDiv" class="w3-container w3-border content-div" style="display: block; overflow-y: auto">
+      <div
+        class="w3-container"
+        id="contentDiv"
+        style="left: 0px; position: relative; top: 16px; width: 100%"
+      >
+        <div
+          id="introDiv"
+          class="w3-container w3-border content-div"
+          style="display: block; overflow-y: auto"
+        >
           <div class="w3-container">
             <div class="w3-panel w3-center">
               <div class="w3-xxlarge">Welcome!</div>
@@ -75,51 +140,121 @@
 
             <div class="w3-panel w3-leftbar w3-light-grey">
               <p class="w3-xlarge">
-                <i>"How long is Adrian Cantrill's AWS Certified Solutions Architect - Associate course?"</i>
+                <i
+                  >"How long is Adrian Cantrill's AWS Certified Solutions
+                  Architect - Associate course?"</i
+                >
               </p>
             </div>
 
             <div class="w3-panel w3-leftbar w3-light-grey">
               <p class="w3-xlarge">
-                <i>"How much content is shared between Adrian Cantrill's AWS Certified Solutions Architect - Associate and AWS Certified Solutions Architect - Professional?"</i>
+                <i
+                  >"How much content is shared between Adrian Cantrill's AWS
+                  Certified Solutions Architect - Associate and AWS Certified
+                  Solutions Architect - Professional?"</i
+                >
               </p>
             </div>
 
             <div class="w3-panel w3-leftbar w3-light-grey">
               <p class="w3-xlarge">
-                <i>"What is the list of lectures I should study from Adrian Cantrill's AWS Certified Developer - Associate given that I've already completed his AWS Certified Solutions Architect - Associate course?"</i>
+                <i
+                  >"What is the list of lectures I should study from Adrian
+                  Cantrill's AWS Certified Developer - Associate given that I've
+                  already completed his AWS Certified Solutions Architect -
+                  Associate course?"</i
+                >
               </p>
             </div>
 
-            <p>These questions and similar ones for all of Adrian's courses are very common questions asked by prospective students embarking on the their AWS certification journey. These questions inspired me to build this Webapp in the hopes that it helps prospective students with their planning and time management. For the curious ones, you can find the source code and architecture of the Webapp on <a href="https://github.com/sfanous/cantrill.io-courses-scraper/" target="_blank">GitHub</a></p>
+            <p>
+              These questions and similar ones for all of Adrian's courses are
+              very common questions asked by prospective students embarking on
+              the their AWS certification journey. These questions inspired me
+              to build this Webapp in the hopes that it helps prospective
+              students with their planning and time management. For the curious
+              ones, you can find the source code and architecture of the Webapp
+              on
+              <a
+                href="https://github.com/sfanous/cantrill.io-courses-scraper/"
+                target="_blank"
+                >GitHub</a
+              >
+            </p>
 
             <div class="w3-container w3-center">
               <br />
-              <div class="w3-small w3-opacity">Content last scraped and updated on <%= it.lastUpdateDateTimeUTC %></div>
+              <div class="w3-small w3-opacity">
+                Content last scraped and updated on <%= it.lastUpdateDateTimeUTC
+                %>
+              </div>
             </div>
           </div>
         </div>
 
-        <div id="coursesDiv" class="w3-container w3-border content-div" style="display: none; overflow-y: auto">
+        <div
+          id="coursesDiv"
+          class="w3-container w3-border content-div"
+          style="display: none; overflow-y: auto"
+        >
           <div class="w3-row w3-padding">
-            <a href="javascript:void(0)" onclick="openCertificationLevelDiv('associateTab','associate');">
-              <div id="associateTab" class="w3-third certification-tab-div w3-bottombar w3-hover-light-grey w3-padding" style="border-color: #2c77ea !important">Associate</div>
+            <a
+              href="javascript:void(0)"
+              onclick="openCertificationLevelDiv('associateTab','associate');"
+            >
+              <div
+                id="associateTab"
+                class="w3-third certification-tab-div w3-bottombar w3-hover-light-grey w3-padding"
+                style="border-color: #2c77ea !important"
+              >
+                Associate
+              </div>
             </a>
-            <a href="javascript:void(0)" onclick="openCertificationLevelDiv('professionalTab','professional');">
-              <div id="professionalTab" class="w3-third certification-tab-div w3-bottombar w3-hover-light-grey w3-padding">Professional</div>
+            <a
+              href="javascript:void(0)"
+              onclick="openCertificationLevelDiv('professionalTab','professional');"
+            >
+              <div
+                id="professionalTab"
+                class="w3-third certification-tab-div w3-bottombar w3-hover-light-grey w3-padding"
+              >
+                Professional
+              </div>
             </a>
-            <a href="javascript:void(0)" onclick="openCertificationLevelDiv('specialtyTab','specialty');">
-              <div id="specialtyTab" class="w3-third certification-tab-div w3-bottombar w3-hover-light-grey w3-padding">Specialty</div>
+            <a
+              href="javascript:void(0)"
+              onclick="openCertificationLevelDiv('specialtyTab','specialty');"
+            >
+              <div
+                id="specialtyTab"
+                class="w3-third certification-tab-div w3-bottombar w3-hover-light-grey w3-padding"
+              >
+                Specialty
+              </div>
             </a>
           </div>
 
-          <%_ Object.keys(it.courses).sort().forEach(function(certificationLevel) { %>
-          <div id="<%= certificationLevel %>" class="w3-container certification-div" style="display: <% if (certificationLevel === 'associate') { %>block<% } else { %>none<% } %>">
+          <%_
+          Object.keys(it.courses).sort().forEach(function(certificationLevel) {
+          %>
+          <div
+            id="<%= certificationLevel %>"
+            class="w3-container certification-div"
+            style="display: <% if (certificationLevel === 'associate') { %>block<% } else { %>none<% } %>"
+          >
             <%_ it.courses[certificationLevel].forEach(function(course) { %>
             <ul class="w3-ul">
               <li style="padding: 0px">
-                <a href="javascript:void(0)" onclick="toggleAccordian('<%= course.code %>')" style="text-decoration: none">
-                  <div class="w3-center w3-light-grey" style="margin-top: 8px; margin-bottom: 8px">
+                <a
+                  href="javascript:void(0)"
+                  onclick="toggleAccordian('<%= course.code %>')"
+                  style="text-decoration: none"
+                >
+                  <div
+                    class="w3-center w3-light-grey"
+                    style="margin-top: 8px; margin-bottom: 8px"
+                  >
                     <b>
                       <div class="w3-row">
                         <div class="w3-col w3-center s12 m12 l12">
@@ -173,9 +308,16 @@
                 </a>
               </li>
             </ul>
-            <div id="<%= course.code %>" class="w3-animate-opacity" style="display: none">
+            <div
+              id="<%= course.code %>"
+              class="w3-animate-opacity"
+              style="display: none"
+            >
               <%_ course.sections.forEach(function(section) { %>
-              <div class="w3-container" style="margin-top: 8px; margin-bottom: 8px; padding: 0px">
+              <div
+                class="w3-container"
+                style="margin-top: 8px; margin-bottom: 8px; padding: 0px"
+              >
                 <ul class="w3-ul w3-light-grey">
                   <li class="w3-border-white">
                     <b>
@@ -231,13 +373,22 @@
                   <%_ section.lectures.forEach(function(lecture) { %>
                   <li class="w3-border-white">
                     <span>
-                      <i class="fa <% if(lecture.isVideo) { %>fa-youtube-play<% } else if (lecture.isPracticeExam || lecture.isQuiz) { %>fa-lightbulb-o<% } else { %>fa-file-text<% } %>" aria-hidden="true"></i>
+                      <i
+                        class="fa <% if(lecture.isVideo) { %>fa-youtube-play<% } else if (lecture.isPracticeExam || lecture.isQuiz) { %>fa-lightbulb-o<% } else { %>fa-file-text<% } %>"
+                        aria-hidden="true"
+                      ></i>
                     </span>
-                    &nbsp;<%= lecture.titleWithDuration %> <%_ Object.keys(lecture.sharedWith).forEach(function(courseCode) { %>
+                    &nbsp;<%= lecture.titleWithDuration %> <%_
+                    Object.keys(lecture.sharedWith).forEach(function(courseCode)
+                    { %>
                     <span
                       aria-label="Shared with <%= courseCode.toUpperCase() %>: <%= lecture.sharedWith[courseCode] %>"
                       data-balloon-pos="up"
-                      style="color: <%= Object.values(it.courses) .flat() .filter((course) => courseCode === course.code) [0].color %>"
+                      style="
+                        color: <%= Object.values(it.courses) .flat()
+                          .filter((course) => courseCode === course.code)
+                          [0].color %>;
+                      "
                     >
                       <i class="fa fa-dot-circle-o"></i>
                     </span>
@@ -253,7 +404,11 @@
           <%_ }) %>
         </div>
 
-        <div id="chartsDiv" class="w3-container w3-border content-div" style="display: none; overflow-y: auto">
+        <div
+          id="chartsDiv"
+          class="w3-container w3-border content-div"
+          style="display: none; overflow-y: auto"
+        >
           <div class="w3-row" style="margin-top: 8px">
             <div class="w3-col w3-center s0 m2 l3">
               <span>&nbsp;</span>
@@ -269,7 +424,10 @@
                 onchange="determineGenerateChartButtonState()"
                 size="<% let chartSourceCoursesSize = 0; Object.values(it.courses).forEach((courses) => { chartSourceCoursesSize += courses.length; }); %><%= chartSourceCoursesSize %>"
               >
-                <%_ Object.keys(it.courses).sort().forEach(function(certificationLevel) { %> <%_ it.courses[certificationLevel].forEach(function(course) { %>
+                <%_
+                Object.keys(it.courses).sort().forEach(function(certificationLevel)
+                { %> <%_ it.courses[certificationLevel].forEach(function(course)
+                { %>
                 <option value="<%= course.code %>"><%= course.title %></option>
                 <%_ }) %> <%_ }) %>
               </select>
@@ -287,8 +445,15 @@
               <label style="color: #232f3e">
                 <b>Is shared with</b>
               </label>
-              <select id="chartTargetCourse" class="w3-select" onchange="determineGenerateChartButtonState()">
-                <%_ Object.keys(it.courses).sort().forEach(function(certificationLevel) { %> <%_ it.courses[certificationLevel].forEach(function(course) { %>
+              <select
+                id="chartTargetCourse"
+                class="w3-select"
+                onchange="determineGenerateChartButtonState()"
+              >
+                <%_
+                Object.keys(it.courses).sort().forEach(function(certificationLevel)
+                { %> <%_ it.courses[certificationLevel].forEach(function(course)
+                { %>
                 <option value="<%= course.code %>"><%= course.title %></option>
                 <%_ }) %> <%_ }) %>
               </select>
@@ -306,7 +471,11 @@
               <label style="color: #232f3e">
                 <b>Across</b>
               </label>
-              <select id="chartScope" class="w3-select" onchange="determineGenerateChartButtonState()">
+              <select
+                id="chartScope"
+                class="w3-select"
+                onchange="determineGenerateChartButtonState()"
+              >
                 <option value="total">All lectures (Theory + Demo)</option>
                 <option value="theory">Theory lectures only</option>
                 <option value="demo">Demo lectures only</option>
@@ -322,17 +491,30 @@
               <span>&nbsp;</span>
             </div>
             <div class="w3-col w3-center s8 m4 l2">
-              <button id="generateChartButton" class="w3-button w3-black w3-block w3-disabled">Go</button>
+              <button
+                id="generateChartButton"
+                class="w3-button w3-black w3-block w3-disabled"
+              >
+                Go
+              </button>
             </div>
             <div class="w3-col w3-center s2 m4 l5">
               <span>&nbsp;</span>
             </div>
           </div>
 
-          <div id="chart" class="w3-container" style="display: none; padding: 0px"></div>
+          <div
+            id="chart"
+            class="w3-container"
+            style="display: none; padding: 0px"
+          ></div>
         </div>
 
-        <div id="studyGuideDiv" class="w3-container w3-border content-div" style="display: none; overflow-y: auto">
+        <div
+          id="studyGuideDiv"
+          class="w3-container w3-border content-div"
+          style="display: none; overflow-y: auto"
+        >
           <div class="w3-row" style="margin-top: 8px">
             <div class="w3-col w3-center s0 m2 l3">
               <span>&nbsp;</span>
@@ -341,8 +523,15 @@
               <label style="color: #232f3e">
                 <b>Which lectures in</b>
               </label>
-              <select id="studyGuideSourceCourse" class="w3-select" onchange="determineGenerateStudyGuideButtonState()">
-                <%_ Object.keys(it.courses).sort().forEach(function(certificationLevel) { %> <%_ it.courses[certificationLevel].forEach(function(course) { %>
+              <select
+                id="studyGuideSourceCourse"
+                class="w3-select"
+                onchange="determineGenerateStudyGuideButtonState()"
+              >
+                <%_
+                Object.keys(it.courses).sort().forEach(function(certificationLevel)
+                { %> <%_ it.courses[certificationLevel].forEach(function(course)
+                { %>
                 <option value="<%= course.code %>"><%= course.title %></option>
                 <%_ }) %> <%_ }) %>
               </select>
@@ -367,7 +556,10 @@
                 onchange="determineGenerateStudyGuideButtonState()"
                 size="<% let studyGuideTargetCoursesSize = 0; Object.values(it.courses).forEach((courses) => { studyGuideTargetCoursesSize += courses.length; }); %><%= studyGuideTargetCoursesSize %>"
               >
-                <%_ Object.keys(it.courses).sort().forEach(function(certificationLevel) { %> <%_ it.courses[certificationLevel].forEach(function(course) { %>
+                <%_
+                Object.keys(it.courses).sort().forEach(function(certificationLevel)
+                { %> <%_ it.courses[certificationLevel].forEach(function(course)
+                { %>
                 <option value="<%= course.code %>"><%= course.title %></option>
                 <%_ }) %> <%_ }) %>
               </select>
@@ -382,25 +574,46 @@
               <span>&nbsp;</span>
             </div>
             <div class="w3-col w3-center s8 m4 l2">
-              <button id="generateStudyGuideButton" class="w3-button w3-black w3-block w3-disabled">Download</button>
+              <button
+                id="generateStudyGuideButton"
+                class="w3-button w3-black w3-block w3-disabled"
+              >
+                Download
+              </button>
             </div>
             <div class="w3-col w3-center s2 m4 l5">
               <span>&nbsp;</span>
             </div>
           </div>
 
-          <div id="studyGuide" class="w3-container" style="display: none; padding: 0px"></div>
+          <div
+            id="studyGuide"
+            class="w3-container"
+            style="display: none; padding: 0px"
+          ></div>
         </div>
 
-        <div id="aboutDiv" class="w3-container w3-border content-div" style="display: none; overflow-y: auto">
+        <div
+          id="aboutDiv"
+          class="w3-container w3-border content-div"
+          style="display: none; overflow-y: auto"
+        >
           <div class="w3-display-container" style="height: 100%">
             <div class="w3-display-middle">
               <div class="w3-center">
                 <p class="w3-small">Built by: Sherif Fanous</p>
-                <a href="https://www.linkedin.com/in/sheriffanous/" style="text-decoration: none" target="_blank">
+                <a
+                  href="https://www.linkedin.com/in/sheriffanous/"
+                  style="text-decoration: none"
+                  target="_blank"
+                >
                   <span><i class="fa fa-linkedin" aria-hidden="true"></i></span>
                 </a>
-                <a href="https://github.com/sfanous/" style="text-decoration: none" target="_blank">
+                <a
+                  href="https://github.com/sfanous/"
+                  style="text-decoration: none"
+                  target="_blank"
+                >
                   <span><i class="fa fa-github" aria-hidden="true"></i></span>
                 </a>
               </div>
@@ -410,10 +623,20 @@
                 <p class="w3-small w3-opacity">Version: <%= it.version %></p>
                 <br />
                 <p class="w3-tiny w3-text-red">
-                  While I have made every attempt to ensure that the information contained in this site is presented with all due care, I am not responsible for any errors or omissions, or for the results obtained from the use of this
-                  information.<br />All information in this site is provided "as is", with no guarantee of completeness, accuracy, timeliness or of the results obtained from the use of this information, and without warranty of any kind,
-                  express or implied, including, but not limited to warranties of performance, merchantability and fitness for a particular purpose. In no event will I thereof be liable to you or anyone else for any decision made or action
-                  taken in reliance on the information in this site or for any consequential, special or similar damages, even if advised of the possibility of such damages.
+                  While I have made every attempt to ensure that the information
+                  contained in this site is presented with all due care, I am
+                  not responsible for any errors or omissions, or for the
+                  results obtained from the use of this information.<br />All
+                  information in this site is provided "as is", with no
+                  guarantee of completeness, accuracy, timeliness or of the
+                  results obtained from the use of this information, and without
+                  warranty of any kind, express or implied, including, but not
+                  limited to warranties of performance, merchantability and
+                  fitness for a particular purpose. In no event will I thereof
+                  be liable to you or anyone else for any decision made or
+                  action taken in reliance on the information in this site or
+                  for any consequential, special or similar damages, even if
+                  advised of the possibility of such damages.
                 </p>
               </div>
             </div>
