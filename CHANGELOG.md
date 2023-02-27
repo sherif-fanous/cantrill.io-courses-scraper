@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.6.1 2023-02-26
+
+- **Feature** Expose generated courses.json into the S3 bucket
+- **Chore** Update config_files/courses.json
+
 ## 2.6.0 2022-01-17
 
 - Code cleanup and refactoring
