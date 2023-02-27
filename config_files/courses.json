@@ -1,7 +1,7 @@
 {
   "associate": [
     {
-      "code": "dva-c01",
+      "code": "dva-c02",
       "color": "#2c77ea",
       "title": "AWS Certified Developer - Associate",
       "url": "https://learn.cantrill.io/p/aws-certified-developer-associate"
@@ -21,13 +21,13 @@
   ],
   "professional": [
     {
-      "code": "sap-c01",
+      "code": "sap-c02",
       "color": "#3DCAC0",
       "title": "AWS Certified Solutions Architect - Professional",
       "url": "https://learn.cantrill.io/p/aws-certified-solutions-architect-professional"
     },
     {
-      "code": "dop-c01",
+      "code": "dop-c02",
       "color": "#3DCAC0",
       "title": "AWS Certified DevOps Engineer - Professional",
       "url": "https://learn.cantrill.io/p/aws-certified-devops-engineer-professional"
