@@ -92,6 +92,12 @@ exports.lambdaHandler = async () => {
 
     await renderGzipTemplates(templates, templateData);
     await putS3Objects(templates);
+    await putS3Object(
+      'courses.json',
+      await util.promisify(zlib.gzip)(JSON.stringify(templateData.courses, null, 2)),
+      'application/json',
+      'gzip'
+    );
   } catch (err) {
     console.log(err);
   }
